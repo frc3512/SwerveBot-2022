@@ -25,3 +25,8 @@ hs_err_pid*
 # lib hal files
 *.so
 *.so.*
+
+# sim gui files
+simgui-ds.json
+simgui-window.json
+simgui.json
