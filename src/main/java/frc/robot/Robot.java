@@ -30,8 +30,7 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
-  }
+  public void robotInit() {}
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -42,6 +41,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    m_swerve.robotPeriodic();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -52,8 +52,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {}
 
   @Override
-  public void autonomousInit() {
-  }
+  public void autonomousInit() {}
 
   /** This function is called periodically during autonomous. */
   @Override
@@ -62,42 +61,46 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {
-  }
+  public void teleopInit() {}
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
     driveWithJoysticks(true);
 
-    if(m_driveController.getAButtonPressed())
-    {
+    if (m_driveController.getAButtonPressed()) {
       m_swerve.zeroGyroscope();
+    }
+    if (m_driveController.getBButton()) {
+      m_swerve.resetModules();
     }
 
     m_swerve.updateOdometry();
   }
 
   @Override
-  public void testInit() {
-  }
+  public void testInit() {}
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
 
+  private void driveWithJoysticks(boolean fieldRelative) {
+    double xSpeed =
+        -m_xspeedLimiter.calculate(MathUtil.applyDeadband(m_driveController.getLeftY(), 0.1))
+            * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+            * 0.5;
 
-  private void driveWithJoysticks(boolean fieldRelative)
-  {
-    double xSpeed = -m_xspeedLimiter.calculate(MathUtil.applyDeadband(m_driveController.getLeftY(), 0.1))
-      * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * 0.5;
+    double ySpeed =
+        -m_yspeedLimiter.calculate(MathUtil.applyDeadband(m_driveController.getLeftX(), 0.1))
+            * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+            * 0.5;
 
-    double ySpeed = -m_yspeedLimiter.calculate(MathUtil.applyDeadband(m_driveController.getLeftX(), 0.1))
-      * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * 0.5;
+    double rot =
+        -m_rotLimiter.calculate(MathUtil.applyDeadband(m_driveController.getRightX(), 0.02))
+            * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+            * 0.5;
 
-    double rot = -m_rotLimiter.calculate(MathUtil.applyDeadband(m_driveController.getRightX(), 0.02))
-      * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * 0.5;
-
-    m_swerve.drive(xSpeed, ySpeed, rot, fieldRelative);
+    m_swerve.drive(xSpeed, ySpeed, rot, true);
   }
 }
