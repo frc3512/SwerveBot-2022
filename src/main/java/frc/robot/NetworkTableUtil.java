@@ -5,61 +5,52 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class NetworkTableUtil {
 
-    public static NetworkTableEntry makeDoubleEntry(String name, double defaultValue)
-    {
-        NetworkTableInstance instance = NetworkTableInstance.getDefault();
-        NetworkTableEntry entry = instance.getEntry(name);
-        entry.setDefaultDouble(defaultValue);
+  public static NetworkTableEntry makeDoubleEntry(String name, double defaultValue) {
+    NetworkTableInstance instance = NetworkTableInstance.getDefault();
+    NetworkTableEntry entry = instance.getEntry(name);
+    entry.setDefaultDouble(defaultValue);
 
-        return entry;
-    } 
+    return entry;
+  }
 
-    public static NetworkTableEntry makeDoubleEntry(String name)
-    {
-        return makeDoubleEntry(name, 0.0);
-    }
+  public static NetworkTableEntry makeDoubleEntry(String name) {
+    return makeDoubleEntry(name, 0.0);
+  }
 
-    public static NetworkTableEntry makeBooleanEntry(String name, boolean defaultValue)
-    {
-        NetworkTableInstance instance = NetworkTableInstance.getDefault();
-        NetworkTableEntry entry = instance.getEntry(name);
-        entry.setDefaultBoolean(defaultValue);
+  public static NetworkTableEntry makeBooleanEntry(String name, boolean defaultValue) {
+    NetworkTableInstance instance = NetworkTableInstance.getDefault();
+    NetworkTableEntry entry = instance.getEntry(name);
+    entry.setDefaultBoolean(defaultValue);
 
-        return entry;
-    }
+    return entry;
+  }
 
-    public static NetworkTableEntry makeBooleanEntry(String name)
-    {
-        return makeBooleanEntry(name, false);
-    }
+  public static NetworkTableEntry makeBooleanEntry(String name) {
+    return makeBooleanEntry(name, false);
+  }
 
-    public static NetworkTableEntry makeStringEntry(String name, String defaultValue)
-    {
-        NetworkTableInstance instance = NetworkTableInstance.getDefault();
-        NetworkTableEntry entry = instance.getEntry(name);
-        entry.setDefaultString(defaultValue);
+  public static NetworkTableEntry makeStringEntry(String name, String defaultValue) {
+    NetworkTableInstance instance = NetworkTableInstance.getDefault();
+    NetworkTableEntry entry = instance.getEntry(name);
+    entry.setDefaultString(defaultValue);
 
-        return entry;
-    }
+    return entry;
+  }
 
-    public static NetworkTableEntry makeStringEntry(String name)
-    {
-        return makeStringEntry(name, "");
-    }
+  public static NetworkTableEntry makeStringEntry(String name) {
+    return makeStringEntry(name, "");
+  }
 
-    public static NetworkTableEntry makeDoubleArrayEntry(String name, double... defaultValue)
-    {
-        NetworkTableInstance instance = NetworkTableInstance.getDefault();
-        NetworkTableEntry entry = instance.getEntry(name);
-        entry.setDefaultDoubleArray(defaultValue);
+  public static NetworkTableEntry makeDoubleArrayEntry(String name, double... defaultValue) {
+    NetworkTableInstance instance = NetworkTableInstance.getDefault();
+    NetworkTableEntry entry = instance.getEntry(name);
+    entry.setDefaultDoubleArray(defaultValue);
 
-        return entry;
-    }
+    return entry;
+  }
 
-    public static NetworkTableEntry makeDoubleArrayEntry(String name)
-    {
-        double[] array = {};
-        return makeDoubleArrayEntry(name, array);
-    }
+  public static NetworkTableEntry makeDoubleArrayEntry(String name) {
+    double[] array = {};
+    return makeDoubleArrayEntry(name, array);
+  }
 }
-
