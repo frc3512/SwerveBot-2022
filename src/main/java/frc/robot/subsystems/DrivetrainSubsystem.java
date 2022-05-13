@@ -17,10 +17,12 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.NetworkTableUtil;
 
 public class DrivetrainSubsystem {
   /**
@@ -78,7 +80,7 @@ public class DrivetrainSubsystem {
   // The important thing about how you configure your gyroscope is that rotating the robot
   // counter-clockwise should
   // cause the angle reading to increase until it wraps back over to zero.
-  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+  private final ADIS16470_IMU m_imu = new ADIS16470_IMU();
 
   // These are our modules. We initialize them in the constructor.
   private final SwerveModule m_frontLeftModule;
@@ -86,7 +88,8 @@ public class DrivetrainSubsystem {
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
 
-  private boolean m_isResetting = false;
+  private NetworkTableEntry m_headingEntry =
+      NetworkTableUtil.makeDoubleEntry("/Diagnostics/Drivetrain/Heading");
 
   public DrivetrainSubsystem() {
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
@@ -144,7 +147,7 @@ public class DrivetrainSubsystem {
             BACK_RIGHT_MODULE_STEER_ENCODER,
             BACK_RIGHT_MODULE_STEER_OFFSET);
 
-    m_gyro.calibrate();
+    m_imu.calibrate();
     zeroGyroscope();
   }
 
@@ -153,11 +156,11 @@ public class DrivetrainSubsystem {
    * facing to the 'forwards' direction.
    */
   public void zeroGyroscope() {
-    m_gyro.reset();
+    m_imu.reset();
   }
 
   public Rotation2d getGyroscopeRotation() {
-    return new Rotation2d(MathUtil.angleModulus(Units.degreesToRadians(-m_gyro.getAngle())));
+    return new Rotation2d(MathUtil.angleModulus(Units.degreesToRadians(-m_imu.getAngle())));
   }
 
   public void updateOdometry() {
@@ -174,10 +177,8 @@ public class DrivetrainSubsystem {
         module.getDriveVelocity(), new Rotation2d(Units.degreesToRadians(module.getSteerAngle())));
   }
 
-  public void robotPeriodic() {}
-
-  public boolean isResetting() {
-    return m_isResetting;
+  public void robotPeriodic() {
+    m_headingEntry.setDouble(getGyroscopeRotation().getRadians());
   }
 
   public void resetModules() {
