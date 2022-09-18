@@ -71,7 +71,8 @@ public final class Constants {
       public static final int canCoderIDMod0 = 1;
       public static final double angleOffsetMod0 = 143.43;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorIDMod0, angleMotorIDMod0, canCoderIDMod0, angleOffsetMod0, false, false);
+          new SwerveModuleConstants(
+              driveMotorIDMod0, angleMotorIDMod0, canCoderIDMod0, angleOffsetMod0, false, false);
     }
 
     /* Front Right Module - Module 1 */
@@ -81,7 +82,8 @@ public final class Constants {
       public static final int canCoderIDMod1 = 2;
       public static final double angleOffsetMod1 = 103.44;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorIDMod1, angleMotorIDMod1, canCoderIDMod1, angleOffsetMod1, false, false);
+          new SwerveModuleConstants(
+              driveMotorIDMod1, angleMotorIDMod1, canCoderIDMod1, angleOffsetMod1, false, false);
     }
 
     /* Back Left Module - Module 2 */
@@ -91,7 +93,8 @@ public final class Constants {
       public static final int canCoderIDMod2 = 3;
       public static final double angleOffsetMod2 = 148.97;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorIDMod2, angleMotorIDMod2, canCoderIDMod2, angleOffsetMod2, true, false);
+          new SwerveModuleConstants(
+              driveMotorIDMod2, angleMotorIDMod2, canCoderIDMod2, angleOffsetMod2, true, false);
     }
 
     /* Back Right Module - Module 3 */
@@ -101,7 +104,8 @@ public final class Constants {
       public static final int canCoderIDMod3 = 4;
       public static final double angleOffsetMod3 = 333.10;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorIDMod3, angleMotorIDMod3, canCoderIDMod3, angleOffsetMod3, true, false);
+          new SwerveModuleConstants(
+              driveMotorIDMod3, angleMotorIDMod3, canCoderIDMod3, angleOffsetMod3, true, false);
     }
   }
 
