@@ -16,9 +16,6 @@ import frc.robot.Robot;
 
 public class SwerveModule {
   public int moduleNumber;
-  private boolean driveInvert;
-  private boolean angleInvert;
-
   private double angleOffset;
   private double lastAngle;
   private CANCoder angleEncoder;
@@ -34,15 +31,13 @@ public class SwerveModule {
       new PIDController(
           Constants.Swerve.angleKP, Constants.Swerve.angleKI, Constants.Swerve.angleKD);
 
-  private SimpleMotorFeedforward mDriveFeedforward =
+  SimpleMotorFeedforward mDriveFeedforward =
       new SimpleMotorFeedforward(
           Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
   public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
     this.moduleNumber = moduleNumber;
     angleOffset = moduleConstants.angleOffset;
-    driveInvert = moduleConstants.driveInvert;
-    angleInvert = moduleConstants.angleInvert;
 
     /* Angle Encoder Config */
     angleEncoder = new CANCoder(moduleConstants.cancoderID);
@@ -51,6 +46,7 @@ public class SwerveModule {
     /* Angle Motor Config */
     mAngleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
     mAngleEncoder = mAngleMotor.getEncoder();
+    mAnglePID.enableContinuousInput(-180.0, 180.0);
     configAngleMotor();
 
     /* Drive Motor Config */
@@ -120,7 +116,7 @@ public class SwerveModule {
   private void configAngleMotor() {
     mAngleMotor.restoreFactoryDefaults();
     mAngleMotor.setSmartCurrentLimit(Constants.Swerve.angleContinuousCurrentLimit);
-    mAngleMotor.setInverted(angleInvert);
+    mAngleMotor.setInverted(Constants.Swerve.angleInvert);
     mAngleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
     mAngleMotor.burnFlash();
     resetToAbsolute();
@@ -129,7 +125,7 @@ public class SwerveModule {
   private void configDriveMotor() {
     mDriveMotor.restoreFactoryDefaults();
     mDriveMotor.setSmartCurrentLimit(Constants.Swerve.driveContinuousCurrentLimit);
-    mDriveMotor.setInverted(driveInvert);
+    mDriveMotor.setInverted(Constants.Swerve.driveInvert);
     mDriveMotor.setIdleMode(Constants.Swerve.driveNeutralMode);
     mDriveMotor.burnFlash();
     mDriveEncoder.setPosition(0.0);

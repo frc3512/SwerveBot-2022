@@ -28,8 +28,8 @@ public final class Constants {
 
     public static final SwerveDriveKinematics swerveKinematics =
         new SwerveDriveKinematics(
-            new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
+            new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
@@ -60,52 +60,56 @@ public final class Constants {
     public static final IdleMode angleNeutralMode = IdleMode.kBrake;
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
 
+    /* Motor Inverts */
+    public static final boolean driveInvert = false;
+    public static final boolean angleInvert = false;
+
     /* Angle Encoder Invert */
     public static final boolean canCoderInvert = false;
 
     /* Module Specific Constants */
     /* Front Left Module - Module 0 */
     public static final class Mod0 {
-      public static final int driveMotorIDMod0 = 20;
-      public static final int angleMotorIDMod0 = 10;
-      public static final int canCoderIDMod0 = 1;
-      public static final double angleOffsetMod0 = 143.43;
+      public static final int driveMotorID = 20;
+      public static final int angleMotorID = 10;
+      public static final int canCoderID = 7;
+      public static final double angleOffset = 144.22;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(
-              driveMotorIDMod0, angleMotorIDMod0, canCoderIDMod0, angleOffsetMod0, false, false);
+              driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Front Right Module - Module 1 */
     public static final class Mod1 {
-      public static final int driveMotorIDMod1 = 21;
-      public static final int angleMotorIDMod1 = 11;
-      public static final int canCoderIDMod1 = 2;
-      public static final double angleOffsetMod1 = 103.44;
+      public static final int driveMotorID = 21;
+      public static final int angleMotorID = 11;
+      public static final int canCoderID = 2;
+      public static final double angleOffset = 109.07;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(
-              driveMotorIDMod1, angleMotorIDMod1, canCoderIDMod1, angleOffsetMod1, false, false);
+              driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Back Left Module - Module 2 */
     public static final class Mod2 {
-      public static final int driveMotorIDMod2 = 12;
-      public static final int angleMotorIDMod2 = 22;
-      public static final int canCoderIDMod2 = 3;
-      public static final double angleOffsetMod2 = 148.97;
+      public static final int driveMotorID = 12;
+      public static final int angleMotorID = 22;
+      public static final int canCoderID = 3;
+      public static final double angleOffset = 326.07;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(
-              driveMotorIDMod2, angleMotorIDMod2, canCoderIDMod2, angleOffsetMod2, true, false);
+              driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Back Right Module - Module 3 */
     public static final class Mod3 {
-      public static final int driveMotorIDMod3 = 13;
-      public static final int angleMotorIDMod3 = 23;
-      public static final int canCoderIDMod3 = 4;
-      public static final double angleOffsetMod3 = 333.10;
+      public static final int driveMotorID = 13;
+      public static final int angleMotorID = 23;
+      public static final int canCoderID = 4;
+      public static final double angleOffset = 157.76;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(
-              driveMotorIDMod3, angleMotorIDMod3, canCoderIDMod3, angleOffsetMod3, true, false);
+              driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
   }
 
