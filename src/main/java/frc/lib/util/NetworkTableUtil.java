@@ -1,10 +1,9 @@
-package frc.robot;
+package frc.lib.util;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class NetworkTableUtil {
-
   public static NetworkTableEntry makeDoubleEntry(String name, double defaultValue) {
     NetworkTableInstance instance = NetworkTableInstance.getDefault();
     NetworkTableEntry entry = instance.getEntry(name);
