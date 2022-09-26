@@ -46,7 +46,6 @@ public class SwerveModule {
     /* Angle Motor Config */
     mAngleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
     mAngleEncoder = mAngleMotor.getEncoder();
-    mAnglePID.enableContinuousInput(-180.0, 180.0);
     configAngleMotor();
 
     /* Drive Motor Config */
