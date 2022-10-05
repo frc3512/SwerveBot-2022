@@ -1,14 +1,15 @@
-package frc.lib.util;
+package frc.lib.math;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-public class CTREModuleState {
+public class OnboardModuleState {
 
   /**
    * Minimize the change in heading the desired swerve module state would require by potentially
    * reversing the direction the wheel spins. Customized from WPILib's version to include placing in
-   * appropriate scope for CTRE onboard control.
+   * appropriate scope for CTRE and REV onboard control as both controllers as of writing don't have
+   * support for continuous input.
    *
    * @param desiredState The desired state.
    * @param currentAngle The current module angle.

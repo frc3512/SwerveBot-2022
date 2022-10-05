@@ -8,9 +8,10 @@ import edu.wpi.first.math.util.Units;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-  public static final double stickDeadband = 0.1;
 
   public static final class Swerve {
+    public static final double stickDeadband = 0.1;
+
     public static final int pigeonID = 6;
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
@@ -28,29 +29,36 @@ public final class Constants {
 
     public static final SwerveDriveKinematics swerveKinematics =
         new SwerveDriveKinematics(
-            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
             new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
+            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
     /* Swerve Current Limiting */
     public static final int angleContinuousCurrentLimit = 25;
-    public static final int driveContinuousCurrentLimit = 35;
+    public static final int driveContinuousCurrentLimit = 30;
 
     /* Angle Motor PID Values */
-    public static final double angleKP = 0.99;
+    public static final double angleKP = 0.01;
     public static final double angleKI = 0.0;
-    public static final double angleKD = 0.0;
+    public static final double angleKD = 0.005;
+    public static final double angkeKFF = 0.0;
 
     /* Drive Motor PID Values */
-    public static final double driveKP = 0.10;
+    public static final double driveKP = 0.0;
     public static final double driveKI = 0.0;
     public static final double driveKD = 0.0;
+    public static final double angleKFF = 0.0;
 
     /* Drive Motor Characterization Values */
     public static final double driveKS = 0.667;
     public static final double driveKV = 2.44;
     public static final double driveKA = 0.27;
+
+    /* Motor Conversion Factors */
+    public static final double driveConversionVelocityFactor =
+        ((wheelDiameter * Math.PI) / driveGearRatio) / 60.0;
+    public static final double angleConversionFactor = 360.0 / 12.8;
 
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
