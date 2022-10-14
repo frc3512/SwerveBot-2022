@@ -52,6 +52,11 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
+  /** Actions that we want to do when the robot is disabled. */
+  public void disabledActions() {
+    s_Swerve.resetModuleZeros();
+  }
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
