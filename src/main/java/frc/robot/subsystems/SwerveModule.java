@@ -85,6 +85,11 @@ public class SwerveModule {
     lastAngle = angle;
   }
 
+  public void setRotation(double angle) {
+    angleController.setReference(angle, ControlType.kPosition);
+    lastAngle = angle;
+  }
+
   public void resetToAbsolute() {
     double absolutePosition = getCanCoder().getDegrees() - angleOffset;
     integratedAngleEncoder.setPosition(absolutePosition);
