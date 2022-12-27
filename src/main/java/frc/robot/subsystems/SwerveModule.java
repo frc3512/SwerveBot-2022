@@ -85,8 +85,7 @@ public class SwerveModule {
     lastAngle = angle;
   }
 
-  public void rotate(double degrees) {
-    double angle = lastAngle + degrees;
+  public void setRotation(double angle) {
     angleController.setReference(angle, ControlType.kPosition);
     lastAngle = angle;
   }

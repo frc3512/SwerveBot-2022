@@ -46,9 +46,9 @@ public class Swerve extends SubsystemBase {
     }
   }
 
-  public void rotate(double degrees) {
+  public void setRotation(double angle) {
     for (SwerveModule mod : mSwerveMods) {
-      mod.rotate(degrees);
+      mod.setRotation(angle);
     }
   }
 
