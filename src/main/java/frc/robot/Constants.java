@@ -59,7 +59,7 @@ public final class Constants {
 
     /* Drive Motor Conversion Factors */
     public static final double driveConversionVelocityFactor = ((wheelDiameter * Math.PI) / driveGearRatio) / 60.0;
-    public static final double angleConversionFactor = 360.0 / 12.8;
+    public static final double angleConversionFactor = 360.0 / (150 / 7);
 
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
