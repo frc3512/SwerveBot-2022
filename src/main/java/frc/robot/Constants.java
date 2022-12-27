@@ -28,8 +28,8 @@ public final class Constants {
     public static final double angleGearRatio = ((150 / 7) / 1); // 150/7:1
 
     public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-        new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
         new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
+        new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
         new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
         new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
@@ -71,7 +71,7 @@ public final class Constants {
 
     /* Motor Inverts */
     public static final boolean driveInvert = false;
-    public static final boolean angleInvert = false;
+    public static final boolean angleInvert = true;
 
     /* Angle Encoder Invert */
     public static final boolean canCoderInvert = false;
@@ -82,7 +82,7 @@ public final class Constants {
       public static final int driveMotorID = 20;
       public static final int angleMotorID = 10;
       public static final int canCoderID = 30;
-      public static final double angleOffset = 3.779;
+      public static final double angleOffset = 38.056;
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
           canCoderID, angleOffset);
     }
@@ -92,7 +92,7 @@ public final class Constants {
       public static final int driveMotorID = 21;
       public static final int angleMotorID = 11;
       public static final int canCoderID = 31;
-      public static final double angleOffset = 34.101;
+      public static final double angleOffset = 34.980;
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID,
           canCoderID, angleOffset);
     }
