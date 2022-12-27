@@ -25,7 +25,7 @@ public final class Constants {
     public static final double closedLoopRamp = 0.0;
 
     public static final double driveGearRatio = (6.12 / 1.0); // 6.12:1
-    public static final double angleGearRatio = ((150 / 7) / 1); // 150:7.1
+    public static final double angleGearRatio = ((150 / 7) / 1); // 150/7:1
 
     public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
         new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
