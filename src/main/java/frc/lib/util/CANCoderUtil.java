@@ -13,15 +13,19 @@ public class CANCoderUtil {
   }
 
   /**
-   * This function allows reducing a CANCoder's CAN bus utilization by reducing the periodic status
+   * This function allows reducing a CANCoder's CAN bus utilization by reducing
+   * the periodic status
    * frame period of nonessential frames from 10ms to 255ms.
    *
-   * <p>See https://docs.ctre-phoenix.com/en/stable/ch18_CommonAPI.html#cancoder for a description
+   * <p>
+   * See https://docs.ctre-phoenix.com/en/stable/ch18_CommonAPI.html#cancoder for
+   * a description
    * of the status frames.
    *
    * @param cancoder The CANCoder to adjust the status frames on.
-   * @param usage The status frame feedback to enable. kAll is the default when a CANCoder
-   *     isconstructed.
+   * @param usage    The status frame feedback to enable. kAll is the default when
+   *                 a CANCoder
+   *                 isconstructed.
    */
   public static void setCANCoderBusUsage(CANCoder cancoder, CCUsage usage) {
     if (usage == CCUsage.kAll) {
@@ -29,13 +33,13 @@ public class CANCoderUtil {
       cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 10);
     } else if (usage == CCUsage.kSensorDataOnly) {
       cancoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 10);
-      cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 255);
+      cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 100);
     } else if (usage == CCUsage.kFaultsOnly) {
-      cancoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 255);
+      cancoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100);
       cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 10);
     } else if (usage == CCUsage.kMinimal) {
-      cancoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 255);
-      cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 255);
+      cancoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 100);
+      cancoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 100);
     }
   }
 }

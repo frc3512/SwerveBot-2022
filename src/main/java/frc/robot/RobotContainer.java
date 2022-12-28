@@ -4,10 +4,15 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,19 +34,27 @@ public class RobotContainer {
   private final Joystick driver = new Joystick(0);
 
   /* Drive Controls */
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  private static final int translationAxis = XboxController.Axis.kLeftY.value;
+  private static final int strafeAxis = XboxController.Axis.kLeftX.value;
+  private static final int rotationAxis = XboxController.Axis.kRightX.value;
 
   /* Driver Buttons */
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
   private final JoystickButton rotation0 = new JoystickButton(driver, XboxController.Button.kA.value);
-  private final JoystickButton rotation90 = new JoystickButton(driver, XboxController.Button.kB.value);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+
+  /* Autonomous Mode Chooser */
+  private final SendableChooser<Trajectory> autoChooser = new SendableChooser<>();
+
+  /* Autonomous Modes */
+  PathPlannerTrajectory moveForward = PathPlanner.loadPath("Move Forward",
+      Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+  PathPlannerTrajectory sCurve = PathPlanner.loadPath("S Curve",
+      Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -57,12 +70,9 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-  }
 
-  /** Actions that we want to do when the robot is disabled. */
-  public void disabledActions() {
-    s_Swerve.resetModuleZeros();
-    SmartDashboard.putNumber("Controller", driver.getRawAxis(rotationAxis));
+    // Configure Smart Dashboard options
+    configureSmartDashboard();
   }
 
   /**
@@ -76,8 +86,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    rotation0.whenReleased(new InstantCommand(() -> s_Swerve.setRotation(0)));
-    rotation90.whenReleased(new InstantCommand(() -> s_Swerve.setRotation(90)));
+    rotation0.whenReleased(new InstantCommand(() -> s_Swerve.setRotation(new Rotation2d(Math.toRadians(0)))));
+  }
+
+  private void configureSmartDashboard() {
+    autoChooser.setDefaultOption("Move forward", moveForward);
+    autoChooser.setDefaultOption("S curve", sCurve);
   }
 
   /**
@@ -86,7 +100,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new exampleAuto(s_Swerve);
+    // Executes the autonomous command chosen in smart dashboard
+    return new executeTrajectory(s_Swerve, autoChooser.getSelected());
   }
 }

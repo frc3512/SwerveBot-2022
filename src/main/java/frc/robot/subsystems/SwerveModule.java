@@ -9,19 +9,20 @@ import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import frc.lib.config.SwerveModuleConstants;
 import frc.lib.math.OnboardModuleState;
 import frc.lib.util.CANCoderUtil;
 import frc.lib.util.CANCoderUtil.CCUsage;
 import frc.lib.util.CANSparkMaxUtil;
 import frc.lib.util.CANSparkMaxUtil.Usage;
-import frc.lib.util.SwerveModuleConstants;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class SwerveModule {
   public int moduleNumber;
-  private double angleOffset;
-  private double lastAngle;
+
+  private Rotation2d lastAngle;
+  private Rotation2d angleOffset;
 
   private CANSparkMax angleMotor;
   private CANSparkMax driveMotor;
@@ -33,7 +34,7 @@ public class SwerveModule {
   private final SparkMaxPIDController driveController;
   private final SparkMaxPIDController angleController;
 
-  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
+  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
       Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
   public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
@@ -56,7 +57,7 @@ public class SwerveModule {
     driveController = driveMotor.getPIDController();
     configDriveMotor();
 
-    lastAngle = getState().angle.getDegrees();
+    lastAngle = getState().angle;
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
@@ -76,22 +77,22 @@ public class SwerveModule {
           feedforward.calculate(desiredState.speedMetersPerSecond));
     }
 
-    double angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01))
+    Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01))
         ? lastAngle
-        : desiredState.angle
-            .getDegrees(); // Prevent rotating module if speed is less then 1%. Prevents
+        : desiredState.angle;
+    // Prevent rotating module if speed is less then 1%. Prevents
     // Jittering.
-    angleController.setReference(angle, ControlType.kPosition);
+    angleController.setReference(angle.getDegrees(), ControlType.kPosition);
     lastAngle = angle;
   }
 
-  public void setRotation(double angle) {
-    angleController.setReference(angle, ControlType.kPosition);
+  public void setRotation(Rotation2d angle) {
+    angleController.setReference(angle.getDegrees(), ControlType.kPosition);
     lastAngle = angle;
   }
 
   public void resetToAbsolute() {
-    double absolutePosition = getCanCoder().getDegrees() - angleOffset;
+    double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
     integratedAngleEncoder.setPosition(absolutePosition);
   }
 
@@ -114,6 +115,7 @@ public class SwerveModule {
     angleController.setFF(Constants.Swerve.angleKFF);
     angleMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
     angleMotor.burnFlash();
+    resetToAbsolute();
   }
 
   private void configDriveMotor() {
@@ -136,9 +138,12 @@ public class SwerveModule {
     return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
   }
 
+  private Rotation2d getAngle() {
+    return Rotation2d.fromDegrees(integratedAngleEncoder.getPosition());
+  }
+
   public SwerveModuleState getState() {
     double velocity = driveEncoder.getVelocity();
-    Rotation2d angle = Rotation2d.fromDegrees(integratedAngleEncoder.getPosition());
-    return new SwerveModuleState(velocity, angle);
+    return new SwerveModuleState(velocity, getAngle());
   }
 }
