@@ -1,10 +1,12 @@
-package frc.lib.util;
+package frc.lib.config;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public class SwerveModuleConstants {
   public final int driveMotorID;
   public final int angleMotorID;
   public final int cancoderID;
-  public final double angleOffset;
+  public final Rotation2d angleOffset;
 
   /**
    * Swerve Module Constants to be used when creating swerve modules.
@@ -15,7 +17,7 @@ public class SwerveModuleConstants {
    * @param angleOffset
    */
   public SwerveModuleConstants(
-      int driveMotorID, int angleMotorID, int canCoderID, double angleOffset) {
+      int driveMotorID, int angleMotorID, int canCoderID, Rotation2d angleOffset) {
     this.driveMotorID = driveMotorID;
     this.angleMotorID = angleMotorID;
     this.cancoderID = canCoderID;

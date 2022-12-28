@@ -1,11 +1,12 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import frc.lib.util.SwerveModuleConstants;
+import frc.lib.config.SwerveModuleConstants;
 
 public final class Constants {
 
@@ -24,17 +25,17 @@ public final class Constants {
     public static final double openLoopRamp = 0.25;
     public static final double closedLoopRamp = 0.0;
 
-    public static final double driveGearRatio = (5.14 / 1.0); // 5.14:1
+    public static final double driveGearRatio = (6.75 / 1.0); // 6.75:1
     public static final double angleGearRatio = (12.8 / 1.0); // 12.8:1
 
     public static final SwerveDriveKinematics swerveKinematics =
         new SwerveDriveKinematics(
-            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
             new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
+            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
             new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
 
-    /* Swerve Compensation */
+    /* Swerve Voltage Compensation */
     public static final double voltageComp = 12.0;
 
     /* Swerve Current Limiting */
@@ -44,11 +45,11 @@ public final class Constants {
     /* Angle Motor PID Values */
     public static final double angleKP = 0.01;
     public static final double angleKI = 0.0;
-    public static final double angleKD = 0.005;
+    public static final double angleKD = 0.0;
     public static final double angleKFF = 0.0;
 
     /* Drive Motor PID Values */
-    public static final double driveKP = 0.0;
+    public static final double driveKP = 0.1;
     public static final double driveKI = 0.0;
     public static final double driveKD = 0.0;
     public static final double driveKFF = 0.0;
@@ -59,9 +60,10 @@ public final class Constants {
     public static final double driveKA = 0.27;
 
     /* Drive Motor Conversion Factors */
-    public static final double driveConversionVelocityFactor =
-        ((wheelDiameter * Math.PI) / driveGearRatio) / 60.0;
-    public static final double angleConversionFactor = 360.0 / 12.8;
+    public static final double driveConversionPositionFactor =
+        (wheelDiameter * Math.PI) / driveGearRatio;
+    public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
+    public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
     /* Swerve Profiling Values */
     public static final double maxSpeed = 4.5; // meters per second
@@ -81,40 +83,40 @@ public final class Constants {
     /* Module Specific Constants */
     /* Front Left Module - Module 0 */
     public static final class Mod0 {
-      public static final int driveMotorID = 20;
-      public static final int angleMotorID = 10;
+      public static final int driveMotorID = 4;
+      public static final int angleMotorID = 3;
       public static final int canCoderID = 1;
-      public static final double angleOffset = 55.45;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(327.48046875);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Front Right Module - Module 1 */
     public static final class Mod1 {
-      public static final int driveMotorID = 21;
-      public static final int angleMotorID = 11;
+      public static final int driveMotorID = 14;
+      public static final int angleMotorID = 13;
       public static final int canCoderID = 2;
-      public static final double angleOffset = 197.402;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(286.34765625);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Back Left Module - Module 2 */
     public static final class Mod2 {
-      public static final int driveMotorID = 12;
-      public static final int angleMotorID = 22;
+      public static final int driveMotorID = 2;
+      public static final int angleMotorID = 1;
       public static final int canCoderID = 3;
-      public static final double angleOffset = 327.568;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(55.01953125);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
     /* Back Right Module - Module 3 */
     public static final class Mod3 {
-      public static final int driveMotorID = 13;
-      public static final int angleMotorID = 23;
+      public static final int driveMotorID = 15;
+      public static final int angleMotorID = 16;
       public static final int canCoderID = 4;
-      public static final double angleOffset = 154.336;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(67.939453125);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
