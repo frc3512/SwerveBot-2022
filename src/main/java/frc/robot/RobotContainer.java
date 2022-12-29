@@ -88,7 +88,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    rotation0.whenReleased(new InstantCommand(() -> s_Swerve.setRotation(Rotation2d.fromDegrees(0))));
+    // rotation0.whenReleased(new InstantCommand(() ->
+    // s_Swerve.setRotation(Rotation2d.fromDegrees(0))));
   }
 
   private void configureSmartDashboard() {
