@@ -11,6 +11,8 @@ import frc.robot.subsystems.Swerve;
 
 public class executeTrajectory extends SequentialCommandGroup {
   public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory) {
+    s_Swerve.getField().getObject("Field").setTrajectory(trajectory);
+
     PIDController thetaController = new PIDController(
         Constants.AutoConstants.kPThetaController,
         0,
@@ -27,7 +29,7 @@ public class executeTrajectory extends SequentialCommandGroup {
         s_Swerve);
 
     addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialPose())),
+        new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialHolonomicPose())),
         swerveControllerCommand);
   }
 }

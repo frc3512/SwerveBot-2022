@@ -8,15 +8,18 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Swerve extends SubsystemBase {
-  public Pigeon2 gyro;
+  private Pigeon2 gyro;
 
-  public SwerveDriveOdometry swerveOdometry;
-  public SwerveModule[] mSwerveMods;
+  private SwerveDriveOdometry swerveOdometry;
+  private SwerveModule[] mSwerveMods;
+
+  private Field2d field;
 
   public Swerve() {
     gyro = new Pigeon2(Constants.Swerve.pigeonID);
@@ -31,6 +34,9 @@ public class Swerve extends SubsystemBase {
         new SwerveModule(2, Constants.Swerve.Mod2.constants),
         new SwerveModule(3, Constants.Swerve.Mod3.constants)
     };
+
+    field = new Field2d();
+    SmartDashboard.putData(field);
   }
 
   public void drive(
@@ -66,8 +72,18 @@ public class Swerve extends SubsystemBase {
     return swerveOdometry.getPoseMeters();
   }
 
+  public Field2d getField() {
+    return field;
+  }
+
   public void resetOdometry(Pose2d pose) {
     swerveOdometry.resetPosition(pose, getYaw());
+  }
+
+  public void resetToAbsolute() {
+    for (SwerveModule mod : mSwerveMods) {
+      mod.resetToAbsolute();
+    }
   }
 
   public SwerveModuleState[] getStates() {
@@ -91,6 +107,7 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     swerveOdometry.update(getYaw(), getStates());
+    field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Pigeon2 Yaw", gyro.getYaw());
 
