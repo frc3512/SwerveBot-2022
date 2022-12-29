@@ -8,7 +8,6 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -48,7 +47,7 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
 
   /* Autonomous Mode Chooser */
-  private final SendableChooser<Trajectory> autoChooser = new SendableChooser<>();
+  private final SendableChooser<PathPlannerTrajectory> autoChooser = new SendableChooser<>();
 
   /* Autonomous Modes */
   PathPlannerTrajectory moveForward = PathPlanner.loadPath("Move Forward",
@@ -86,7 +85,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    rotation0.whenReleased(new InstantCommand(() -> s_Swerve.setRotation(new Rotation2d(Math.toRadians(0)))));
+    rotation0.whenReleased(new InstantCommand(() -> s_Swerve.setRotation(Rotation2d.fromDegrees(0))));
   }
 
   private void configureSmartDashboard() {

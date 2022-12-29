@@ -1,24 +1,22 @@
 package frc.robot.autos;
 
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class executeTrajectory extends SequentialCommandGroup {
-  public executeTrajectory(Swerve s_Swerve, Trajectory trajectory) {
-    var thetaController = new ProfiledPIDController(
+  public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory) {
+    PIDController thetaController = new PIDController(
         Constants.AutoConstants.kPThetaController,
         0,
-        0,
-        Constants.AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+        0);
 
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+    PPSwerveControllerCommand swerveControllerCommand = new PPSwerveControllerCommand(
         trajectory,
         s_Swerve::getPose,
         Constants.Swerve.swerveKinematics,

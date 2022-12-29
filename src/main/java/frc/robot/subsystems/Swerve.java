@@ -8,7 +8,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,8 +17,6 @@ public class Swerve extends SubsystemBase {
 
   public SwerveDriveOdometry swerveOdometry;
   public SwerveModule[] mSwerveMods;
-
-  private Field2d field;
 
   public Swerve() {
     gyro = new Pigeon2(Constants.Swerve.pigeonID);
@@ -34,9 +31,6 @@ public class Swerve extends SubsystemBase {
         new SwerveModule(2, Constants.Swerve.Mod2.constants),
         new SwerveModule(3, Constants.Swerve.Mod3.constants)
     };
-
-    field = new Field2d();
-    SmartDashboard.putData("Field", field);
   }
 
   public void drive(
@@ -97,7 +91,8 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     swerveOdometry.update(getYaw(), getStates());
-    field.setRobotPose(getPose());
+
+    SmartDashboard.putNumber("Pigeon2 Yaw", gyro.getYaw());
 
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
@@ -107,6 +102,5 @@ public class Swerve extends SubsystemBase {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
     }
-    SmartDashboard.putNumber("Pigeon2", gyro.getYaw());
   }
 }
