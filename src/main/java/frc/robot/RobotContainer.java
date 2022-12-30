@@ -20,15 +20,6 @@ import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
-/**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
- * subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
   /* Controllers */
   private final Joystick driver = new Joystick(0);
@@ -88,8 +79,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.whenPressed(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    // rotation0.whenReleased(new InstantCommand(() ->
-    // s_Swerve.setRotation(Rotation2d.fromDegrees(0))));
+    rotation0.whenReleased(new rotateWheels(s_Swerve, Rotation2d.fromDegrees(0)));
   }
 
   private void configureSmartDashboard() {

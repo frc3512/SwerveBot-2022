@@ -62,6 +62,12 @@ public class Swerve extends SubsystemBase {
     }
   }
 
+  public void setModuleRotation(Rotation2d rotation) {
+    for (SwerveModule mod : mSwerveMods) {
+      mod.setDesiredState(new SwerveModuleState(0, rotation), false);
+    }
+  }
+
   public Pose2d getPose() {
     return swerveOdometry.getPoseMeters();
   }
