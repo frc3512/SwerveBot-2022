@@ -116,17 +116,6 @@
               "_title": "Pigeon2 Yaw"
             }
           },
-          "8,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Mod 0 Cancoder",
-              "_title": "Mod 0 Cancoder"
-            }
-          },
           "9,0": {
             "size": [
               1,
@@ -138,7 +127,7 @@
               "_title": "Mod 0 Integrated"
             }
           },
-          "2,1": {
+          "8,2": {
             "size": [
               1,
               1
@@ -149,7 +138,7 @@
               "_title": "Mod 0 Velocity"
             }
           },
-          "3,1": {
+          "6,3": {
             "size": [
               1,
               1
@@ -160,7 +149,7 @@
               "_title": "Mod 1 Cancoder"
             }
           },
-          "4,1": {
+          "7,3": {
             "size": [
               1,
               1
@@ -171,7 +160,7 @@
               "_title": "Mod 1 Integrated"
             }
           },
-          "5,1": {
+          "8,3": {
             "size": [
               1,
               1
@@ -182,7 +171,7 @@
               "_title": "Mod 1 Velocity"
             }
           },
-          "6,1": {
+          "6,4": {
             "size": [
               1,
               1
@@ -193,7 +182,7 @@
               "_title": "Mod 2 Cancoder"
             }
           },
-          "7,1": {
+          "7,4": {
             "size": [
               1,
               1
@@ -204,7 +193,7 @@
               "_title": "Mod 2 Integrated"
             }
           },
-          "8,1": {
+          "8,4": {
             "size": [
               1,
               1
@@ -215,7 +204,7 @@
               "_title": "Mod 2 Velocity"
             }
           },
-          "9,1": {
+          "6,5": {
             "size": [
               1,
               1
@@ -226,7 +215,7 @@
               "_title": "Mod 3 Cancoder"
             }
           },
-          "0,2": {
+          "7,5": {
             "size": [
               1,
               1
@@ -237,7 +226,7 @@
               "_title": "Mod 3 Integrated"
             }
           },
-          "1,2": {
+          "8,5": {
             "size": [
               1,
               1
@@ -248,7 +237,7 @@
               "_title": "Mod 3 Velocity"
             }
           },
-          "4,2": {
+          "10,2": {
             "size": [
               2,
               1
@@ -259,8 +248,7 @@
               "_title": "SmartDashboard/Field",
               "Game/Game": "A2022_Rapid_React",
               "Visuals/Robot Icon Size": 50.0,
-              "Visuals/Show Outside Circles": false,
-              "Colors/Field": "#FFFFFFFF"
+              "Visuals/Show Outside Circles": false
             }
           },
           "10,0": {
@@ -294,6 +282,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/PPSwerveControllerCommand_rotationError",
               "_title": "PPSwerveControllerCommand_rotationError"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Mod 0 Cancoder",
+              "_title": "Mod 0 Cancoder"
             }
           }
         }
@@ -482,8 +481,7 @@
               "_title": "SmartDashboard/Field",
               "Game/Game": "A2022_Rapid_React",
               "Visuals/Robot Icon Size": 50.0,
-              "Visuals/Show Outside Circles": false,
-              "Colors/Field": "#FFFFFFFF"
+              "Visuals/Show Outside Circles": false
             }
           },
           "0,2": {
