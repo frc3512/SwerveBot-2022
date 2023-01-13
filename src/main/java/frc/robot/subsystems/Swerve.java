@@ -94,6 +94,10 @@ public class Swerve extends SubsystemBase {
     return states;
   }
 
+  public SwerveModule[] getModules(){
+    return mSwerveMods;
+  }
+
   public void zeroGyro() {
     gyro.setYaw(0);
   }
