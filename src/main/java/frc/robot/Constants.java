@@ -53,6 +53,15 @@ public final class Constants {
     public static final double driveKD = 0.0;
     public static final double driveKFF = 0.0;
 
+    /* Drive Motor Pitch PID Values */
+    public static final double drivePitchKP = 0.0;
+    public static final double drivePitchKI = 0.0;
+    public static final double drivePitchKD = 0.0;
+    public static final double drivePitchKFF = 0.0;
+
+    /* Drive Motor Pitch PID SetPoint */
+    public static final double pitchSetPoint = 0.0;
+
     /* Drive Motor Characterization Values */
     public static final double driveKS = 0.11979;
     public static final double driveKV = 2.3823;
