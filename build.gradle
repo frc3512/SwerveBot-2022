@@ -1,7 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2022.4.1"
-    id "com.diffplug.spotless" version "6.1.0"
+    id "edu.wpi.first.GradleRIO" version "2023.2.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -18,7 +17,7 @@ deploy {
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = project.frc.getTeamOrDefault(3512)
+            team = project.frc.getTeamNumber()
             debug = project.frc.getDebugOrDefault(false)
 
             artifacts {
@@ -47,7 +46,7 @@ wpi.java.debugJni = false
 def includeDesktopSupport = false
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
-// Also defines JUnit 4.
+// Also defines JUnit 5.
 dependencies {
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
@@ -66,7 +65,14 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
 }
 
 // Simulation configuration (e.g. environment variables).
@@ -87,45 +93,7 @@ deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
 
-spotless {
-    java {
-        target fileTree('.') {
-            include '**/*.java'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        toggleOffOn()
-        googleJavaFormat()
-        removeUnusedImports()
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    groovyGradle {
-        target fileTree('.') {
-            include '**/*.gradle'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        greclipse()
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    format 'xml', {
-        target fileTree('.') {
-            include '**/*.xml'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        eclipseWtp('xml')
-        trimTrailingWhitespace()
-        indentWithSpaces(2)
-        endWithNewline()
-    }
-    format 'misc', {
-        target fileTree('.') {
-            include '**/*.md', '**/.gitignore'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        trimTrailingWhitespace()
-        indentWithSpaces(2)
-        endWithNewline()
-    }
+// Configure string concat to always inline compile
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add '-XDstringConcat=inline'
 }

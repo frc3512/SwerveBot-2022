@@ -13,7 +13,7 @@ public final class CTREConfigs {
     swerveCanCoderConfig = new CANCoderConfiguration();
 
     /* Swerve CANCoder Configuration */
-    swerveCanCoderConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
+    swerveCanCoderConfig.absoluteSensorRange = AbsoluteSensorRange.Signed_PlusMinus180;
     swerveCanCoderConfig.sensorDirection = Constants.Swerve.canCoderInvert;
     swerveCanCoderConfig.initializationStrategy =
         SensorInitializationStrategy.BootToAbsolutePosition;
