@@ -28,15 +28,17 @@ public class Swerve extends SubsystemBase {
     gyro.configFactoryDefault();
     zeroGyro();
 
+    mSwerveMods = new SwerveModule[] {
+      new SwerveModule(0, Constants.Swerve.Mod0.constants),
+      new SwerveModule(1, Constants.Swerve.Mod1.constants),
+      new SwerveModule(2, Constants.Swerve.Mod2.constants),
+      new SwerveModule(3, Constants.Swerve.Mod3.constants)
+  };
+
     swervePoseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getYaw(), getPositions(),
         new Pose2d());
 
-    mSwerveMods = new SwerveModule[] {
-        new SwerveModule(0, Constants.Swerve.Mod0.constants),
-        new SwerveModule(1, Constants.Swerve.Mod1.constants),
-        new SwerveModule(2, Constants.Swerve.Mod2.constants),
-        new SwerveModule(3, Constants.Swerve.Mod3.constants)
-    };
+    
 
     field = new Field2d();
     SmartDashboard.putData(field);
