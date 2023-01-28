@@ -1,5 +1,9 @@
 package frc.robot.subsystems;
 
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -22,7 +26,7 @@ public class Swerve extends SubsystemBase {
   private SwerveDrivePoseEstimator swervePoseEstimator;
   private SwerveModule[] mSwerveMods;
 
-  private PhotonVision pcw;
+  private PhotonVisionWrapper pcw;
 
   private Field2d field;
 
@@ -41,7 +45,7 @@ public class Swerve extends SubsystemBase {
     swervePoseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getYaw(), getPositions(),
         new Pose2d());
 
-    pcw = new PhotonVision();
+    pcw = new PhotonVisionWrapper();
 
     field = new Field2d();
     SmartDashboard.putData(field);
@@ -128,11 +132,11 @@ public class Swerve extends SubsystemBase {
   public void periodic() {
     field.setRobotPose(getPose());
         Optional<EstimatedRobotPose> result =
-                pcw.getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+                pcw.getEstimatedGlobalPose(getPose());
 
         if (result.isPresent()) {
             EstimatedRobotPose camPose = result.get();
-            m_poseEstimator.addVisionMeasurement(
+            swervePoseEstimator.addVisionMeasurement(
                     camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
         }
     SmartDashboard.putNumber("Pigeon2 Yaw", gyro.getYaw());

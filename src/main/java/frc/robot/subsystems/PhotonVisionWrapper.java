@@ -24,12 +24,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
 
-public class PhotoVision extends SubsystemBase {
+public class PhotonVisionWrapper extends SubsystemBase {
     private PhotonCamera camera;
     private PhotonPoseEstimator positionEstimation;
     private AprilTagFieldLayout aprilTagLayout;
 
-    public PhotoVision() {
+    public PhotonVisionWrapper() {
         camera = new PhotonCamera(Constants.PhotonVision.photonVisionName);
         aprilTagLayout = new AprilTagFieldLayout(Constants.AprilTags.aprilTagList, FieldConstants.fieldLength, FieldConstants.fieldWidth);
         positionEstimation = new PhotonPoseEstimator(aprilTagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, Constants.PhotonVision.robotToCam);
