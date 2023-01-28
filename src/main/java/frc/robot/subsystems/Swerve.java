@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -15,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.PhotonVision;
 
 public class Swerve extends SubsystemBase {
   private Pigeon2 gyro;
@@ -22,10 +22,12 @@ public class Swerve extends SubsystemBase {
   private SwerveDrivePoseEstimator swervePoseEstimator;
   private SwerveModule[] mSwerveMods;
 
+  private PhotonVision pcw;
+
   private Field2d field;
 
   public Swerve() {
-    gyro = new WPI_Pigeon2(Constants.Swerve.pigeonID);
+    gyro = new Pigeon2(Constants.Swerve.pigeonID);
     gyro.configFactoryDefault();
     zeroGyro();
 
@@ -38,6 +40,8 @@ public class Swerve extends SubsystemBase {
 
     swervePoseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getYaw(), getPositions(),
         new Pose2d());
+
+    pcw = new PhotonVision();
 
     field = new Field2d();
     SmartDashboard.putData(field);
@@ -122,9 +126,15 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
-    swervePoseEstimator.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
+        Optional<EstimatedRobotPose> result =
+                pcw.getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
 
+        if (result.isPresent()) {
+            EstimatedRobotPose camPose = result.get();
+            m_poseEstimator.addVisionMeasurement(
+                    camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
+        }
     SmartDashboard.putNumber("Pigeon2 Yaw", gyro.getYaw());
 
     for (SwerveModule mod : mSwerveMods) {

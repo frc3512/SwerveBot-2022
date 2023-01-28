@@ -1,12 +1,20 @@
 package frc.robot;
 
+import java.util.ArrayList;
+
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.lib.config.SwerveModuleConstants;
+
 
 public final class Constants {
 
@@ -41,20 +49,18 @@ public final class Constants {
     public static final int angleContinuousCurrentLimit = 20;
     public static final int driveContinuousCurrentLimit = 80;
 
+    public static final double pitchSetPoint = 0.0;
+
+    public static final double drivePitchKP = 0.02;
+    public static final double drivePitchKI = 0.000000001;
+    public static final double drivePitchKD = 0.000000001;
+    public static final double drivePitchKFF = 0.000000001;
+
     /* Angle Motor PID Values */
     public static final double angleKP = 0.01;
     public static final double angleKI = 0.0;
     public static final double angleKD = 0.005;
     public static final double angleKFF = 0.0;
-
-    /* Drive Motor Pitch PID Values */
-    public static final double drivePitchKP = 0.02;
-    public static final double drivePitchKI = 0.00000001;
-    public static final double drivePitchKD = 0.00000001;
-    public static final double drivePitchKFF = 0.00000001;
-
-    /* Drive Motor Pitch PID SetPoint */
-    public static final double pitchSetPoint = 0.0;
 
     /* Drive Motor PID Values */
     public static final double driveKP = 0.0;
@@ -137,5 +143,38 @@ public final class Constants {
     public static final double kPXController = 1;
     public static final double kPYController = 1;
     public static final double kPThetaController = 1;
+  }
+
+  public static final class PhotonVision{
+    public static final String photonVisionName = "bert";
+    public static final Transform3d robotToCam =
+    new Transform3d(
+            new Translation3d(Units.inchesToMeters(11.4), 0.0, Units.inchesToMeters(6.4)),
+            new Rotation3d(
+                    0, 0,
+                    0));
+  }
+
+  public static final class AprilTags{
+    public static final AprilTag tag1 = new AprilTag(1, FieldConstants.aprilTags.get(1));
+    public static final AprilTag tag2 = new AprilTag(2, FieldConstants.aprilTags.get(2));
+    public static final AprilTag tag3 = new AprilTag(3, FieldConstants.aprilTags.get(3));
+    public static final AprilTag tag4 = new AprilTag(4, FieldConstants.aprilTags.get(4));
+    public static final AprilTag tag5 = new AprilTag(5, FieldConstants.aprilTags.get(5));
+    public static final AprilTag tag6 = new AprilTag(6, FieldConstants.aprilTags.get(6));
+    public static final AprilTag tag7 = new AprilTag(7, FieldConstants.aprilTags.get(7));
+    public static final AprilTag tag8 = new AprilTag(8, FieldConstants.aprilTags.get(8));
+    public static final ArrayList<AprilTag> aprilTagList = new ArrayList<>();
+
+    static{
+      aprilTagList.add(tag1);
+      aprilTagList.add(tag2);
+      aprilTagList.add(tag3);
+      aprilTagList.add(tag4);
+      aprilTagList.add(tag5);
+      aprilTagList.add(tag6);
+      aprilTagList.add(tag7);
+      aprilTagList.add(tag8);
+    }
   }
 }
