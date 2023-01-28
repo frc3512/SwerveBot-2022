@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -24,7 +25,7 @@ public class Swerve extends SubsystemBase {
   private Field2d field;
 
   public Swerve() {
-    gyro = new Pigeon2(Constants.Swerve.pigeonID);
+    gyro = new WPI_Pigeon2(Constants.Swerve.pigeonID);
     gyro.configFactoryDefault();
     zeroGyro();
 
@@ -37,8 +38,6 @@ public class Swerve extends SubsystemBase {
 
     swervePoseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getYaw(), getPositions(),
         new Pose2d());
-
-    
 
     field = new Field2d();
     SmartDashboard.putData(field);
