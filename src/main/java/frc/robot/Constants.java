@@ -47,6 +47,15 @@ public final class Constants {
     public static final double angleKD = 0.005;
     public static final double angleKFF = 0.0;
 
+    /* Drive Motor Pitch PID Values */
+    public static final double drivePitchKP = 0.02;
+    public static final double drivePitchKI = 0.00000001;
+    public static final double drivePitchKD = 0.00000001;
+    public static final double drivePitchKFF = 0.00000001;
+
+    /* Drive Motor Pitch PID SetPoint */
+    public static final double pitchSetPoint = 0.0;
+
     /* Drive Motor PID Values */
     public static final double driveKP = 0.0;
     public static final double driveKI = 0.0;
