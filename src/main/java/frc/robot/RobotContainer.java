@@ -76,7 +76,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     /* Driver Buttons */
-    autoBalanceButton.onTrue(new AutoBalancing(s_Swerve));
+    autoBalanceButton.whenPressed(new AutoBalancing(s_Swerve));
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
   }
 

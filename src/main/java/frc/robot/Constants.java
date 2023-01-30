@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.apriltag.AprilTag;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -51,10 +50,10 @@ public final class Constants {
 
     public static final double pitchSetPoint = 0.0;
 
-    public static final double drivePitchKP = 0.02;
-    public static final double drivePitchKI = 0.000000001;
-    public static final double drivePitchKD = 0.000000001;
-    public static final double drivePitchKFF = 0.000000001;
+    public static final double drivePitchKP = 0.04;
+    public static final double drivePitchKI = 0.00005;
+    public static final double drivePitchKD = 0.000000000000001;
+    public static final double drivePitchKFF = 0.000000000000001;
 
     /* Angle Motor PID Values */
     public static final double angleKP = 0.01;
@@ -146,7 +145,7 @@ public final class Constants {
   }
 
   public static final class PhotonVision{
-    public static final String photonVisionName = "bert";
+    public static final String photonVisionName = "OV5647";
     public static final Transform3d robotToCam =
     new Transform3d(
             new Translation3d(Units.inchesToMeters(11.4), 0.0, Units.inchesToMeters(6.4)),

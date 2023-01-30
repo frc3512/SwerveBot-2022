@@ -2,13 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
-import frc.robot.subsystems.SwerveModule;
 
 public class AutoBalancing extends CommandBase {
   private Swerve s_Swerve;
@@ -22,14 +20,16 @@ public class AutoBalancing extends CommandBase {
         Constants.Swerve.drivePitchKD, 
         Constants.Swerve.drivePitchKFF);
     pidController.setTolerance(1);
+    pidController.setSetpoint(Constants.Swerve.pitchSetPoint);
     addRequirements(s_Swerve);
   }
 
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("At Tolerance", pidController.atSetpoint());
         double translationVal  = MathUtil.clamp(
             pidController.calculate(
-                s_Swerve.getPitch().getDegrees(), Constants.Swerve.pitchSetPoint), -.1, .1);
+                s_Swerve.getPitch().getDegrees(), Constants.Swerve.pitchSetPoint), -.35, .35);
         s_Swerve.drive(
         new Translation2d(translationVal, 0).times(Constants.Swerve.maxSpeed), 0, true, false);
     }
@@ -45,6 +45,7 @@ public class AutoBalancing extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        SmartDashboard.putBoolean("At Tolerance", pidController.atSetpoint());
+        return pidController.atSetpoint();
     }
 }

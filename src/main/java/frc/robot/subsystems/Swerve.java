@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.PhotonVision;
 
 public class Swerve extends SubsystemBase {
   private Pigeon2 gyro;
@@ -130,7 +129,7 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
-    field.setRobotPose(getPose());
+        swervePoseEstimator.update(getYaw(), getPositions());
         Optional<EstimatedRobotPose> result =
                 pcw.getEstimatedGlobalPose(getPose());
 
@@ -139,7 +138,11 @@ public class Swerve extends SubsystemBase {
             swervePoseEstimator.addVisionMeasurement(
                     camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
         }
+
+        field.setRobotPose(getPose());
+
     SmartDashboard.putNumber("Pigeon2 Yaw", gyro.getYaw());
+    SmartDashboard.putNumber("Pigeon2 Pitch", getPitch().getDegrees());
 
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
