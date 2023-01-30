@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.photonvision.EstimatedRobotPose;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.pathplanner.lib.PathPoint;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -36,11 +37,11 @@ public class Swerve extends SubsystemBase {
     zeroGyro();
 
     mSwerveMods = new SwerveModule[] {
-      new SwerveModule(0, Constants.Swerve.Mod0.constants),
-      new SwerveModule(1, Constants.Swerve.Mod1.constants),
-      new SwerveModule(2, Constants.Swerve.Mod2.constants),
-      new SwerveModule(3, Constants.Swerve.Mod3.constants)
-  };
+        new SwerveModule(0, Constants.Swerve.Mod0.constants),
+        new SwerveModule(1, Constants.Swerve.Mod1.constants),
+        new SwerveModule(2, Constants.Swerve.Mod2.constants),
+        new SwerveModule(3, Constants.Swerve.Mod3.constants)
+    };
 
     swervePoseEstimator = new SwerveDrivePoseEstimator(Constants.Swerve.swerveKinematics, getYaw(), getPositions(),
         new Pose2d());
@@ -118,8 +119,12 @@ public class Swerve extends SubsystemBase {
     gyro.setYaw(0);
   }
 
-  public Rotation2d getPitch(){
+  public Rotation2d getPitch() {
     return Rotation2d.fromDegrees(gyro.getPitch());
+  }
+
+  public PathPoint getPoint() {
+    return new PathPoint(getPose().getTranslation(), getPose().getRotation());
   }
 
   public Rotation2d getYaw() {
@@ -131,14 +136,13 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     field.setRobotPose(getPose());
-        Optional<EstimatedRobotPose> result =
-                pcw.getEstimatedGlobalPose(getPose());
+    Optional<EstimatedRobotPose> result = pcw.getEstimatedGlobalPose(getPose());
 
-        if (result.isPresent()) {
-            EstimatedRobotPose camPose = result.get();
-            swervePoseEstimator.addVisionMeasurement(
-                    camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
-        }
+    if (result.isPresent()) {
+      EstimatedRobotPose camPose = result.get();
+      swervePoseEstimator.addVisionMeasurement(
+          camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
+    }
     SmartDashboard.putNumber("Pigeon2 Yaw", gyro.getYaw());
 
     for (SwerveModule mod : mSwerveMods) {

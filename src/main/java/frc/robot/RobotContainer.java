@@ -4,34 +4,33 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPoint;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
   /* Controllers */
-  private final Joystick driver = new Joystick(0);
+  private final CommandXboxController driver = new CommandXboxController(0);
 
   /* Drive Controls */
   private static final int translationAxis = XboxController.Axis.kLeftY.value;
   private static final int strafeAxis = XboxController.Axis.kLeftX.value;
   private static final int rotationAxis = XboxController.Axis.kRightX.value;
-
-  /* Driver Buttons */
-  private final JoystickButton autoBalanceButton = new JoystickButton(driver, XboxController.Button.kX.value);
-  private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
@@ -57,7 +56,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
             () -> -driver.getRawAxis(rotationAxis),
-            () -> robotCentric.getAsBoolean()));
+            () -> driver.leftBumper().getAsBoolean()));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -76,8 +75,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     /* Driver Buttons */
-    autoBalanceButton.onTrue(new AutoBalancing(s_Swerve));
-    zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    driver.x().onTrue(new AutoBalancing(s_Swerve));
+    driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+    driver.povDown().onTrue(new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, s_Swerve.getPoint()));
   }
 
   private void configureSmartDashboard() {
