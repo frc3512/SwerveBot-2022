@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.util.ArrayList;
 
+import com.pathplanner.lib.PathConstraints;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.apriltag.AprilTag;
@@ -13,7 +14,6 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import frc.lib.config.SwerveModuleConstants;
-
 
 public final class Constants {
 
@@ -73,7 +73,8 @@ public final class Constants {
     public static final double driveKA = 0.30034;
 
     /* Drive Motor Conversion Factors */
-    public static final double driveConversionVelocityFactor = ((wheelDiameter * Math.PI) / driveGearRatio) / 60.0;
+    public static final double driveConversionPositionFactor = (wheelDiameter * Math.PI) / driveGearRatio;
+    public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
     public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
     /* Swerve Profiling Values */
@@ -134,6 +135,8 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
+    public static final PathConstraints constraints = new PathConstraints(4, 3);
+
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
@@ -154,7 +157,7 @@ public final class Constants {
                     0));
   }
 
-  public static final class AprilTags{
+  public static final class AprilTags {
     public static final AprilTag tag1 = new AprilTag(1, FieldConstants.aprilTags.get(1));
     public static final AprilTag tag2 = new AprilTag(2, FieldConstants.aprilTags.get(2));
     public static final AprilTag tag3 = new AprilTag(3, FieldConstants.aprilTags.get(3));
@@ -165,7 +168,7 @@ public final class Constants {
     public static final AprilTag tag8 = new AprilTag(8, FieldConstants.aprilTags.get(8));
     public static final ArrayList<AprilTag> aprilTagList = new ArrayList<>();
 
-    static{
+    static {
       aprilTagList.add(tag1);
       aprilTagList.add(tag2);
       aprilTagList.add(tag3);
