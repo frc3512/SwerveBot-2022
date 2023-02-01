@@ -135,7 +135,7 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final PathConstraints constraints = new PathConstraints(4, 3);
+    public static final PathConstraints constraints = new PathConstraints(1, 1);
 
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;

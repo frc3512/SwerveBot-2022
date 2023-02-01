@@ -4,7 +4,9 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
+import frc.robot.autos.segmentLineUp;
 import frc.robot.subsystems.Swerve;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -14,6 +16,7 @@ public class TeleopSwerve extends CommandBase {
   private DoubleSupplier translationSup;
   private DoubleSupplier strafeSup;
   private DoubleSupplier rotationSup;
+  private BooleanSupplier autoCenter;
   private BooleanSupplier robotCentricSup;
 
   private SlewRateLimiter translationLimiter = new SlewRateLimiter(3.0);
@@ -25,6 +28,7 @@ public class TeleopSwerve extends CommandBase {
       DoubleSupplier translationSup,
       DoubleSupplier strafeSup,
       DoubleSupplier rotationSup,
+      BooleanSupplier autoCenter,
       BooleanSupplier robotCentricSup) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
@@ -32,6 +36,7 @@ public class TeleopSwerve extends CommandBase {
     this.translationSup = translationSup;
     this.strafeSup = strafeSup;
     this.rotationSup = rotationSup;
+    this.autoCenter = autoCenter;
     this.robotCentricSup = robotCentricSup;
   }
 
@@ -46,6 +51,10 @@ public class TeleopSwerve extends CommandBase {
         .calculate(MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
 
     /* Drive */
+    if(autoCenter.getAsBoolean()){
+      segmentLineUp lineup = new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, () -> s_Swerve.getPoint());
+      lineup.schedule();
+    }
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
         rotationVal * Constants.Swerve.maxAngularVelocity,

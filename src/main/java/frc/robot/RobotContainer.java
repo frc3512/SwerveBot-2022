@@ -51,6 +51,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
             () -> -driver.getRawAxis(rotationAxis),
+            () -> driver.povDown().getAsBoolean(),
             () -> driver.leftBumper().getAsBoolean()));
 
     // Configure the button bindings
@@ -72,8 +73,6 @@ public class RobotContainer {
     /* Driver Buttons */
     driver.x().onTrue(new AutoBalancing(s_Swerve));
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-
-    driver.povDown().onTrue(new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, s_Swerve.getPoint()));
   }
 
   private void configureSmartDashboard() {
