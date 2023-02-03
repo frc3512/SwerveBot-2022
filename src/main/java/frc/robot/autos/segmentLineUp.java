@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -81,7 +82,6 @@ public class segmentLineUp extends SequentialCommandGroup {
                 Constants.AutoConstants.constraints,
                 startPoint.get(),
                 lineUpPoint);
-
 
         PathPlannerTrajectory.transformTrajectoryForAlliance(trajectoryToSegment, DriverStation.getAlliance());
 
