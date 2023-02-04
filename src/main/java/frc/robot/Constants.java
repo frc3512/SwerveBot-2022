@@ -81,6 +81,9 @@ public final class Constants {
     public static final double maxSpeed = 3; // meters per second
     public static final double maxAngularVelocity = 5;
 
+    /* Swerve Limiting Values */
+    public static final double autoCenterLimit = .3;
+
     /* Neutral Modes */
     public static final IdleMode angleNeutralMode = IdleMode.kBrake;
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
