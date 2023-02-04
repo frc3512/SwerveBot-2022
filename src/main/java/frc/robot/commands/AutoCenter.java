@@ -18,7 +18,10 @@ public class AutoCenter extends CommandBase {
   private PhotonVisionWrapper s_PhotonVisionWrapper;
 
   /**
-   * 
+   * The auto center constructor declares swerve and photonvision wrapper, and sets up pid controllers. 
+   * <p> 
+   * There is a pid controller for angle, left, and right components of the april tag. They are used to determine where the robot should drive 
+   * to in order to be centered with the april tag.  
    * @param s_Swerve
    * @param s_PhotonVisionWrapper
    */

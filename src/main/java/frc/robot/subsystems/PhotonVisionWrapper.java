@@ -28,6 +28,9 @@ public class PhotonVisionWrapper extends SubsystemBase {
         camera = new PhotonCamera(Constants.PhotonVision.photonVisionName);
         aprilTagLayout = new AprilTagFieldLayout(Constants.AprilTags.aprilTagList, FieldConstants.fieldLength, FieldConstants.fieldWidth);
         positionEstimation = new PhotonPoseEstimator(aprilTagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, Constants.PhotonVision.robotToCam);
+
+        
+        
     }
     /**
      * 
@@ -46,14 +49,18 @@ public class PhotonVisionWrapper extends SubsystemBase {
         return camera.getLatestResult().getBestTarget() != null ? camera.getLatestResult().getBestTarget() : null;
     }
 
+    
+    
     /**
      * 
      */
     public void periodic(){
         if(camera.getLatestResult().getBestTarget() != null){
-            SmartDashboard.putNumber("X From AprilTag", camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
-            SmartDashboard.putNumber("Y From AprilTag", camera.getLatestResult().getBestTarget().getBestCameraToTarget().getY());
-            SmartDashboard.putNumber("Angle From AprilTag", camera.getLatestResult().getBestTarget().getYaw());
+            PhotonTrackedTarget target = camera.getLatestResult().getBestTarget(); 
+            SmartDashboard.putNumber("X From AprilTag", target.getBestCameraToTarget().getX());
+            SmartDashboard.putNumber("Y From AprilTag", target.getBestCameraToTarget().getY());
+            SmartDashboard.putNumber("Angle From AprilTag", target.getYaw());
         }
     }
+
 }

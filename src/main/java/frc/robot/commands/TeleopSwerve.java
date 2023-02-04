@@ -23,6 +23,15 @@ public class TeleopSwerve extends CommandBase {
   private SlewRateLimiter strafeLimiter = new SlewRateLimiter(3.0);
   private SlewRateLimiter rotationLimiter = new SlewRateLimiter(3.0);
 
+  /**
+   * 
+   * @param s_Swerve
+   * @param translationSup
+   * @param strafeSup
+   * @param rotationSup
+   * @param autoCenter
+   * @param robotCentricSup
+   */
   public TeleopSwerve(
       Swerve s_Swerve,
       DoubleSupplier translationSup,
@@ -39,6 +48,9 @@ public class TeleopSwerve extends CommandBase {
     this.autoCenter = autoCenter;
     this.robotCentricSup = robotCentricSup;
   }
+  /**
+   * TODO
+   */
 
   @Override
   public void execute() {
