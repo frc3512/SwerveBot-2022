@@ -17,7 +17,11 @@ public class AutoCenter extends CommandBase {
   private PIDController pidControllerAngle;
   private PhotonVisionWrapper s_PhotonVisionWrapper;
 
-  
+  /**
+   * 
+   * @param s_Swerve
+   * @param s_PhotonVisionWrapper
+   */
 
   public AutoCenter(Swerve s_Swerve, PhotonVisionWrapper s_PhotonVisionWrapper){
     this.s_Swerve = s_Swerve;
@@ -34,6 +38,9 @@ public class AutoCenter extends CommandBase {
     
 
   }
+  /**
+   * TODO
+   */
 
   @Override
   public void execute() {

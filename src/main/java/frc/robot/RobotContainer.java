@@ -83,6 +83,9 @@ public class RobotContainer {
     SmartDashboard.putData(autoChooser);
   }
 
+  /**
+   * TODO
+   */
   public void disabledInit() {
     s_Swerve.resetToAbsolute();
   }

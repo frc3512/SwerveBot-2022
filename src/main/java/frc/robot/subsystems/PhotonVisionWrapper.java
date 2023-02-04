@@ -21,21 +21,34 @@ public class PhotonVisionWrapper extends SubsystemBase {
     private PhotonPoseEstimator positionEstimation;
     private AprilTagFieldLayout aprilTagLayout; 
 
+    /**
+     * TODO
+     */
     public PhotonVisionWrapper() {
         camera = new PhotonCamera(Constants.PhotonVision.photonVisionName);
         aprilTagLayout = new AprilTagFieldLayout(Constants.AprilTags.aprilTagList, FieldConstants.fieldLength, FieldConstants.fieldWidth);
         positionEstimation = new PhotonPoseEstimator(aprilTagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, camera, Constants.PhotonVision.robotToCam);
     }
-
+    /**
+     * 
+     * @param prevEstimatedRobotPose
+     * @return Optional<EstimatedRobotPose> 
+     */
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
         positionEstimation.setReferencePose(prevEstimatedRobotPose);
         return positionEstimation.update();
     }
-
+    /**
+     * 
+     * @return PhotonTrackedTarget
+     */
     public PhotonTrackedTarget getClosestAprilTag(){
         return camera.getLatestResult().getBestTarget() != null ? camera.getLatestResult().getBestTarget() : null;
     }
 
+    /**
+     * 
+     */
     public void periodic(){
         if(camera.getLatestResult().getBestTarget() != null){
             SmartDashboard.putNumber("X From AprilTag", camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
