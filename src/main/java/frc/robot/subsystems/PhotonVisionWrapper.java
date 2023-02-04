@@ -9,6 +9,7 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
@@ -27,5 +28,9 @@ public class PhotonVisionWrapper extends SubsystemBase {
     public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
         positionEstimation.setReferencePose(prevEstimatedRobotPose);
         return positionEstimation.update();
+    }
+
+    public Transform3d getClosestAprilTag(){
+        return camera.getLatestResult().getBestTarget().getBestCameraToTarget();
     }
 }
