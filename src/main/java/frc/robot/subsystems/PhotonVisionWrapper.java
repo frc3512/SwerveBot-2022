@@ -6,10 +6,12 @@ import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
@@ -17,7 +19,7 @@ import frc.robot.FieldConstants;
 public class PhotonVisionWrapper extends SubsystemBase {
     private PhotonCamera camera;
     private PhotonPoseEstimator positionEstimation;
-    private AprilTagFieldLayout aprilTagLayout;
+    private AprilTagFieldLayout aprilTagLayout; 
 
     public PhotonVisionWrapper() {
         camera = new PhotonCamera(Constants.PhotonVision.photonVisionName);
@@ -30,7 +32,15 @@ public class PhotonVisionWrapper extends SubsystemBase {
         return positionEstimation.update();
     }
 
-    public Transform3d getClosestAprilTag(){
-        return camera.getLatestResult().getBestTarget().getBestCameraToTarget();
+    public PhotonTrackedTarget getClosestAprilTag(){
+        return camera.getLatestResult().getBestTarget() != null ? camera.getLatestResult().getBestTarget() : null;
+    }
+
+    public void periodic(){
+        if(camera.getLatestResult().getBestTarget() != null){
+            SmartDashboard.putNumber("X From AprilTag", camera.getLatestResult().getBestTarget().getBestCameraToTarget().getX());
+            SmartDashboard.putNumber("Y From AprilTag", camera.getLatestResult().getBestTarget().getBestCameraToTarget().getY());
+            SmartDashboard.putNumber("Angle From AprilTag", camera.getLatestResult().getBestTarget().getYaw());
+        }
     }
 }

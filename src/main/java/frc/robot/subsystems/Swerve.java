@@ -140,6 +140,9 @@ public class Swerve extends SubsystemBase {
         : Rotation2d.fromDegrees(gyro.getYaw());
   }
 
+  public PhotonVisionWrapper getCamera(){
+    return pcw;
+  }
   @Override
   public void periodic() {
         swervePoseEstimator.update(getYaw(), getPositions());

@@ -29,6 +29,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+  private final PhotonVisionWrapper s_PhotonVisionWrapper;
 
   /* Autonomous Mode Chooser */
   private final SendableChooser<PathPlannerTrajectory> autoChooser = new SendableChooser<>();
@@ -40,7 +41,6 @@ public class RobotContainer {
       Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared);
   PathPlannerTrajectory sussy = PathPlanner.loadPath("sussy",
       Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared);
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -53,6 +53,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(rotationAxis),
             () -> driver.povDown().getAsBoolean(),
             () -> driver.leftBumper().getAsBoolean()));
+    s_PhotonVisionWrapper = s_Swerve.getCamera();
 
     // Configure the button bindings
     configureButtonBindings();
@@ -60,7 +61,6 @@ public class RobotContainer {
     // Configure Smart Dashboard options
     configureSmartDashboard();
   }
-
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by
@@ -73,8 +73,8 @@ public class RobotContainer {
     /* Driver Buttons */
     driver.x().onTrue(new AutoBalancing(s_Swerve));
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    driver.a().onTrue(new AutoCenter(s_Swerve, s_PhotonVisionWrapper));
   }
-
   private void configureSmartDashboard() {
     autoChooser.setDefaultOption("Move forward", moveForward);
     autoChooser.addOption("S curve", sCurve);
@@ -86,7 +86,6 @@ public class RobotContainer {
   public void disabledInit() {
     s_Swerve.resetToAbsolute();
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
