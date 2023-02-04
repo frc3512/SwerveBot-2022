@@ -11,11 +11,9 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class executeTrajectory extends SequentialCommandGroup {
-  public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory) {
-    PathPlannerTrajectory allianceTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(trajectory,
-        DriverStation.getAlliance());
+  public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory, boolean setInitialPose) {
 
-    s_Swerve.getField().getObject("Field").setTrajectory(allianceTrajectory);
+    s_Swerve.getField().getObject("Field").setTrajectory(trajectory);
 
     PIDController thetaController = new PIDController(
         Constants.AutoConstants.kPThetaController,
@@ -23,7 +21,7 @@ public class executeTrajectory extends SequentialCommandGroup {
         0);
 
     PPSwerveControllerCommand swerveControllerCommand = new PPSwerveControllerCommand(
-        allianceTrajectory,
+        trajectory,
         s_Swerve::getPose,
         Constants.Swerve.swerveKinematics,
         new PIDController(Constants.AutoConstants.kPXController, 0, 0),
@@ -32,8 +30,13 @@ public class executeTrajectory extends SequentialCommandGroup {
         s_Swerve::setModuleStates,
         s_Swerve);
 
+    if(setInitialPose){
     addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(allianceTrajectory.getInitialHolonomicPose())),
+        new InstantCommand(() -> s_Swerve.resetOdometry(trajectory.getInitialHolonomicPose())),
         swerveControllerCommand);
+    } else{
+        addCommands(
+            swerveControllerCommand);
+    }
   }
 }

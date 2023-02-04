@@ -83,9 +83,9 @@ public class segmentLineUp extends SequentialCommandGroup {
                 startPoint.get(),
                 lineUpPoint);
 
-        PathPlannerTrajectory.transformTrajectoryForAlliance(trajectoryToSegment, DriverStation.getAlliance());
+        trajectoryToSegment = PathPlannerTrajectory.transformTrajectoryForAlliance(trajectoryToSegment, DriverStation.getAlliance());
 
         addCommands(
-                new executeTrajectory(s_Swerve, trajectoryToSegment));
+                new executeTrajectory(s_Swerve, trajectoryToSegment, false));
     }
 }
