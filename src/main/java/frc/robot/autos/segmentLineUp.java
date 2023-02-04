@@ -26,6 +26,12 @@ public class segmentLineUp extends SequentialCommandGroup {
         CUBE_3
     }
 
+    /**
+     * 
+     * @param s_Swerve
+     * @param segment the segment TODO  
+     * @param startPoint
+     */
     public segmentLineUp(Swerve s_Swerve, SEGMENT segment, Supplier<PathPoint> startPoint) {
         PathPoint lineUpPoint = startPoint.get();
 

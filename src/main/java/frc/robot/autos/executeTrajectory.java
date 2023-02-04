@@ -9,6 +9,15 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class executeTrajectory extends SequentialCommandGroup {
+
+  /**
+   * TODO
+   * 
+   * @param s_Swerve
+   * @param trajectory takes in a path planer
+   * @param setInitialPose 
+   */
+  
   public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory, boolean setInitialPose) {
 
     s_Swerve.getField().getObject("Field").setTrajectory(trajectory);
