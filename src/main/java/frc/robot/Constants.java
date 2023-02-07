@@ -183,4 +183,12 @@ public final class Constants {
       aprilTagList.add(tag8);
     }
   }
+
+  public static final class Elevator{
+    public static final int motorLeftId = 51;
+    public static final int canConderLeftId = 61;
+
+    public static final int motorRightId = 52;
+    public static final int canConderRightId = 62;
+  }
 }
