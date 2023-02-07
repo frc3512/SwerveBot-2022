@@ -1,12 +1,9 @@
 package frc.robot.subsystems;
 
 import java.util.Optional;
-
 import org.photonvision.EstimatedRobotPose;
-
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.PathPoint;
-
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -32,9 +29,6 @@ public class Swerve extends SubsystemBase {
 
   private Field2d field;
 
-  /**
-   * TODO
-   */
   public Swerve() {
     gyro = new Pigeon2(Constants.Swerve.pigeonID);
     zeroGyro();
@@ -54,13 +48,7 @@ public class Swerve extends SubsystemBase {
     field = new Field2d();
     SmartDashboard.putData(field);
   }
-  /**
-   * 
-   * @param translation
-   * @param rotation
-   * @param fieldRelative
-   * @param isOpenLoop
-   */
+
   public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(
         fieldRelative
@@ -74,11 +62,7 @@ public class Swerve extends SubsystemBase {
     }
   }
 
-  /**
-   * Used by SwerveControllerCommand in Auto
-   * @param desiredStates
-   */
-  
+  /* Used by SwerveControllerCommand in Auto */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
 
@@ -86,20 +70,13 @@ public class Swerve extends SubsystemBase {
       mod.setDesiredState(desiredStates[mod.moduleNumber], false);
     }
   }
-  /**
-   * 
-   * @param rotation
-   */
+
   public void setModuleRotation(Rotation2d rotation) {
     for (SwerveModule mod : mSwerveMods) {
       mod.setDesiredState(new SwerveModuleState(0, rotation), false);
     }
   }
 
-  /**
-   * 
-   * @return Pose2d
-   */
   public Pose2d getPose() {
     Pose2d pose = swervePoseEstimator.getEstimatedPosition();
     if(DriverStation.getAlliance() == DriverStation.Alliance.Red){
@@ -112,35 +89,20 @@ public class Swerve extends SubsystemBase {
     return swervePoseEstimator.getEstimatedPosition();
   }
 
-  /**
-   * 
-   * @return Field2d
-   */
   public Field2d getField() {
     return field;
   }
 
-  /**
-   * 
-   * @param pose
-   */
   public void resetOdometry(Pose2d pose) {
     swervePoseEstimator.resetPosition(getYaw(), getPositions(), pose);
   }
 
-  /**
-   * 
-   */
   public void resetToAbsolute() {
     for (SwerveModule mod : mSwerveMods) {
       mod.resetToAbsolute();
     }
   }
 
-  /**
-   * 
-   * @return SwerveModuleState[]
-   */
   public SwerveModuleState[] getStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
     for (SwerveModule mod : mSwerveMods) {
@@ -149,10 +111,6 @@ public class Swerve extends SubsystemBase {
     return states;
   }
 
-  /**
-   * 
-   * @return SwerveModulePosition[]
-   */
   public SwerveModulePosition[] getPositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
     for (SwerveModule mod : mSwerveMods) {
@@ -161,49 +119,27 @@ public class Swerve extends SubsystemBase {
     return positions;
   }
 
-  /**
-   * 
-   */
   public void zeroGyro() {
     gyro.setYaw(0);
   }
-  /**
-   * 
-   * @return Rotation2d
-   */
+
   public Rotation2d getPitch() {
     return Rotation2d.fromDegrees(gyro.getPitch());
   }
 
-  /**
-   * 
-   * @return PathPoint
-   */
   public PathPoint getPoint() {
     return new PathPoint(getPose().getTranslation(), getPose().getRotation());
   }
 
-  /**
-   * 
-   * @return Rotation2d
-   */
   public Rotation2d getYaw() {
     return (Constants.Swerve.invertGyro)
         ? Rotation2d.fromDegrees(360 - gyro.getYaw())
         : Rotation2d.fromDegrees(gyro.getYaw());
   }
 
-  /**
-   * 
-   * @return PhotonVisionWrapper
-   */
   public PhotonVisionWrapper getCamera(){
     return pcw;
   }
-
-  /**
-   * 
-   */
   @Override
   public void periodic() {
         swervePoseEstimator.update(getYaw(), getPositions());
