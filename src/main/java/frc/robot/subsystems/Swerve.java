@@ -1,12 +1,9 @@
 package frc.robot.subsystems;
 
 import java.util.Optional;
-
 import org.photonvision.EstimatedRobotPose;
-
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.PathPoint;
-
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -140,6 +137,9 @@ public class Swerve extends SubsystemBase {
         : Rotation2d.fromDegrees(gyro.getYaw());
   }
 
+  public PhotonVisionWrapper getCamera(){
+    return pcw;
+  }
   @Override
   public void periodic() {
         swervePoseEstimator.update(getYaw(), getPositions());

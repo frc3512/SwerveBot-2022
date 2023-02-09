@@ -2,15 +2,22 @@ package frc.robot.autos;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class executeTrajectory extends SequentialCommandGroup {
+
+  /**
+   * TODO
+   * 
+   * @param s_Swerve
+   * @param trajectory takes in a path planer
+   * @param setInitialPose 
+   */
+  
   public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory, boolean setInitialPose) {
 
     s_Swerve.getField().getObject("Field").setTrajectory(trajectory);

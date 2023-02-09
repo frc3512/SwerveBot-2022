@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
-import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -27,6 +26,12 @@ public class segmentLineUp extends SequentialCommandGroup {
         CUBE_3
     }
 
+    /**
+     * 
+     * @param s_Swerve
+     * @param segment the segment TODO  
+     * @param startPoint
+     */
     public segmentLineUp(Swerve s_Swerve, SEGMENT segment, Supplier<PathPoint> startPoint) {
         PathPoint lineUpPoint = startPoint.get();
 

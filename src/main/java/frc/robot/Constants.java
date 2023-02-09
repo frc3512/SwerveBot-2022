@@ -22,7 +22,7 @@ public final class Constants {
 
     public static final int pigeonID = 6;
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
-
+    //TODO
     /* Drivetrain Constants */
     public static final double trackWidth = Units.inchesToMeters(20.75);
     public static final double wheelBase = Units.inchesToMeters(20.75);
@@ -62,7 +62,7 @@ public final class Constants {
     public static final double angleKFF = 0.0;
 
     /* Drive Motor PID Values */
-    public static final double driveKP = 0.0;
+    public static final double driveKP = 0.1;
     public static final double driveKI = 0.0;
     public static final double driveKD = 0.0;
     public static final double driveKFF = 0.0;
@@ -95,6 +95,7 @@ public final class Constants {
     /* Angle Encoder Invert */
     public static final boolean canCoderInvert = false;
 
+  
     /* Module Specific Constants */
     /* Front Left Module - Module 0 */
     public static final class Mod0 {
@@ -181,5 +182,13 @@ public final class Constants {
       aprilTagList.add(tag7);
       aprilTagList.add(tag8);
     }
+  }
+
+  public static final class Elevator{
+    public static final int motorLeftId = 51;
+    public static final int canConderLeftId = 61;
+
+    public static final int motorRightId = 52;
+    public static final int canConderRightId = 62;
   }
 }
