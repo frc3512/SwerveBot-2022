@@ -20,12 +20,13 @@ import frc.robot.subsystems.*;
 
 public class RobotContainer {
   /* Controllers */
-  private final CommandXboxController driver = new CommandXboxController(0);
+  public final CommandXboxController driver = new CommandXboxController(0);
 
   /* Drive Controls */
   private static final int translationAxis = XboxController.Axis.kLeftY.value;
   private static final int strafeAxis = XboxController.Axis.kLeftX.value;
   private static final int rotationAxis = XboxController.Axis.kRightX.value;
+  private static final int motorComtrol = XboxController.Axis.kLeftTrigger.value;
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
