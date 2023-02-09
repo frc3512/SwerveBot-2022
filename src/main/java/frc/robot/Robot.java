@@ -95,6 +95,8 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
   }
 
+  CANSparkMax s;
+
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -104,13 +106,13 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    s = new CANSparkMax(58,MotorType.kBrushless);
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
     //testing intake
-    CANSparkMax s = new CANSparkMax(58,MotorType.kBrushless);
     s.set(m_robotContainer.driver.getRightTriggerAxis() - m_robotContainer.driver.getLeftTriggerAxis());
   }
 
