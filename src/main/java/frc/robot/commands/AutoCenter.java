@@ -26,14 +26,7 @@ public class AutoCenter extends CommandBase {
    * @param s_PhotonVisionWrapper
    */
 
-=======
-   * The AutoCenter constructor creates a pidController and sets a tolerance. 
-   * It also initalizes the photon vision wrapper subsystem. The photon vision wrapper subsystem
-   * is used to detect the april tag. 
-   * @param s_Swerve
-   * @param s_PhotonVisionWrapper
-   */
->>>>>>> Stashed changes
+
   public AutoCenter(Swerve s_Swerve, PhotonVisionWrapper s_PhotonVisionWrapper){
     this.s_Swerve = s_Swerve;
     this.s_PhotonVisionWrapper = s_PhotonVisionWrapper;
@@ -60,7 +53,7 @@ public class AutoCenter extends CommandBase {
    * drives to a spot 1 meter away from the april tag. 
    */
   @Override
-<<<<<<< Updated upstream
+
   public void execute() {
     PhotonTrackedTarget target = s_PhotonVisionWrapper.getClosestAprilTag();
     if(target != null){
@@ -70,14 +63,7 @@ public class AutoCenter extends CommandBase {
         double translationAngle = pidControllerAngle.calculate(target.getYaw());
         s_Swerve.drive(new Translation2d(translationValX, translationValY), translationAngle, false, false);
       }
-=======
 
-  public void execute() {  
-        double translationValX = pidController.calculate(MathUtil.clamp(Constants.Swerve.autoCenterLimit,-Constants.Swerve.autoCenterLimit,s_PhotonVisionWrapper.getClosestAprilTag().getX()-1));
-        double translationValY = pidController.calculate(MathUtil.clamp(Constants.Swerve.autoCenterLimit,-Constants.Swerve.autoCenterLimit,s_PhotonVisionWrapper.getClosestAprilTag().getY()));
-        double translationAngle = s_PhotonVisionWrapper.getClosestAprilTag().getRotation().getAngle();
 
-        s_Swerve.drive(new Translation2d(translationValX, translationValY), translationAngle, true, false);
->>>>>>> Stashed changes
     }
 }

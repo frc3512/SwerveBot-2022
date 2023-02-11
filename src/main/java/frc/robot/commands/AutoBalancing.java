@@ -12,14 +12,11 @@ public class AutoBalancing extends CommandBase {
   private Swerve s_Swerve;
   private PIDController pidController;
 
-<<<<<<< Updated upstream
   /**
    * 
    * @param s_Swerve TODO
    */
-=======
-  
->>>>>>> Stashed changes
+
   public AutoBalancing(Swerve s_Swerve){
     this.s_Swerve = s_Swerve;
     pidController = new PIDController(

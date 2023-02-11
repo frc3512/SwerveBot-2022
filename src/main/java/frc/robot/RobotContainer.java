@@ -26,10 +26,12 @@ public class RobotContainer {
   private static final int translationAxis = XboxController.Axis.kLeftY.value;
   private static final int strafeAxis = XboxController.Axis.kLeftX.value;
   private static final int rotationAxis = XboxController.Axis.kRightX.value;
+  private static final int motorComtrol = XboxController.Axis.kLeftTrigger.value;
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
   private final PhotonVisionWrapper s_PhotonVisionWrapper;
+  private final IntakeSubsystem intakeSubsystem= new IntakeSubsystem();
 
   /* Autonomous Mode Chooser */
   private final SendableChooser<PathPlannerTrajectory> autoChooser = new SendableChooser<>();
@@ -68,7 +70,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
    * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   * <p>
+   *  <p>
    * This method binds the buttons to commands. 
    * The x button is binded to AutoBalancing. 
    * Y button is for swerve
@@ -78,11 +80,16 @@ public class RobotContainer {
     driver.x().onTrue(new AutoBalancing(s_Swerve));
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     driver.povDown().onTrue(new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, () -> s_Swerve.getPoint()));
+
+    //
+    driver.leftTrigger().onTrue(new IntakeConeCmd(intakeSubsystem)); 
+    driver.rightTrigger().onTrue(new IntakeCubeCmd(intakeSubsystem));
+
+    driver.leftBumper().onTrue(new OuttakeConeCmd(intakeSubsystem));
+    driver.rightBumper().onTrue(new OuttakeCubeCmd(intakeSubsystem));
+    
   }
-<<<<<<< Updated upstream
-=======
   
->>>>>>> Stashed changes
   private void configureSmartDashboard() {
     autoChooser.setDefaultOption("Move forward", moveForward);
     autoChooser.addOption("S curve", sCurve);

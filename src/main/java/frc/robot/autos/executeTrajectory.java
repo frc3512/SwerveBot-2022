@@ -19,13 +19,8 @@ public class executeTrajectory extends SequentialCommandGroup {
    * @param setInitialPose 
    */
   
-=======
-   * 
-   * @param s_Swerve
-   * @param trajectory
-   * @param setInitialPose
-   */
->>>>>>> Stashed changes
+
+
   public executeTrajectory(Swerve s_Swerve, PathPlannerTrajectory trajectory, boolean setInitialPose) {
 
     s_Swerve.getField().getObject("Field").setTrajectory(trajectory);

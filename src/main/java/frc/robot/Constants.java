@@ -190,5 +190,20 @@ public final class Constants {
 
     public static final int motorRightId = 52;
     public static final int canConderRightId = 62;
+
+    
+  }
+  public static final class IntakeConstants{
+    public static final int intakeMotorId = 58; 
+    public static final int wristMotorId = 59;
+    public static final int pdpChannel = 2; //update number later
+
+    public static final double coneIntakeSpeed = 1; 
+    public static final double cubeIntakeSpeed = .75; 
+
+    public static final double outtakeSpeed = 1; 
+
+    public static final double  theoreticalStallCurrent = 150; 
+
   }
 }
