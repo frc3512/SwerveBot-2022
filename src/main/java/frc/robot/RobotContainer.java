@@ -77,16 +77,17 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     /* Driver Buttons */
-    driver.x().onTrue(new AutoBalancing(s_Swerve));
+    // driver.x().onTrue(new AutoBalancing(s_Swerve));
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    driver.povDown().onTrue(new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, () -> s_Swerve.getPoint()));
+    // driver.povDown().onTrue(new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, () -> s_Swerve.getPoint()));
 
     //
-    driver.leftTrigger().onTrue(new IntakeConeCmd(intakeSubsystem)); 
-    driver.rightTrigger().onTrue(new IntakeCubeCmd(intakeSubsystem));
 
-    driver.leftBumper().onTrue(new OuttakeConeCmd(intakeSubsystem));
-    driver.rightBumper().onTrue(new OuttakeCubeCmd(intakeSubsystem));
+    driver.povUp().onTrue(new IntakeConeCmd(intakeSubsystem)); 
+    driver.povDown().onTrue(new IntakeCubeCmd(intakeSubsystem));
+
+    driver.povLeft().onTrue(new OuttakeConeCmd(intakeSubsystem));
+    driver.povRight().onTrue(new OuttakeCubeCmd(intakeSubsystem));
     
   }
   

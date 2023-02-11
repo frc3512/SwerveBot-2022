@@ -12,22 +12,20 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
 
 public class IntakeSubsystem extends SubsystemBase{
-    private final CANSparkMax wristMotor;
+    // private final CANSparkMax wristMotor;
     private final CANSparkMax intakeMotor; 
-    private final PowerDistribution pdm;
+    // private final PowerDistribution pdm;
 
     public IntakeSubsystem(){
         intakeMotor = new CANSparkMax(Constants.IntakeConstants.intakeMotorId, MotorType.kBrushless); 
-        wristMotor = new CANSparkMax(Constants.IntakeConstants.wristMotorId, MotorType.kBrushless);
-        pdm = new PowerDistribution(1, PowerDistribution.ModuleType.kRev);
-
-        new IntakeCubeCmd(this); 
+        // wristMotor = new CANSparkMax(Constants.IntakeConstants.wristMotorId, MotorType.kBrushless);
+        // pdm = new PowerDistribution(1, PowerDistribution.ModuleType.kRev); 
     }
     public void setMotor(double speed){
         intakeMotor.set(speed); 
     }
-    public double getPDMCurrent(){
-        return pdm.getCurrent(Constants.IntakeConstants.pdpChannel); 
+     public double getPDMCurrent(){
+         return intakeMotor.getOutputCurrent(); 
     }
     @Override 
     public void periodic(){

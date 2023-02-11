@@ -66,4 +66,11 @@ public class AutoCenter extends CommandBase {
 
 
     }
+
+    /* Temporary Auto Disable */
+    @Override
+    public boolean isFinished() {
+      // TODO Auto-generated method stub
+      return true;
+    }
 }

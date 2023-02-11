@@ -199,11 +199,11 @@ public final class Constants {
     public static final int pdpChannel = 2; //update number later
 
     public static final double coneIntakeSpeed = 1; 
-    public static final double cubeIntakeSpeed = .75; 
+    public static final double cubeIntakeSpeed = 1; 
 
     public static final double outtakeSpeed = 1; 
 
-    public static final double  theoreticalStallCurrent = 150; 
+    public static final double  theoreticalStallCurrent = 80; 
 
   }
 }

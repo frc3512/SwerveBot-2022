@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -7,13 +8,17 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeConeCmd extends CommandBase {
     
     IntakeSubsystem intakeSubsystem; 
+    Timer time;
 
     public IntakeConeCmd(IntakeSubsystem intakeSubsystem){
         this.intakeSubsystem = intakeSubsystem; 
+        this.time = new Timer();
         addRequirements(intakeSubsystem);
     }
     @Override
     public void end(boolean interrupted){
+        time.stop();
+        time.reset();
         intakeSubsystem.setMotor(0);
         System.out.println("IntakeConeCmd ended"); 
     }
@@ -23,12 +28,13 @@ public class IntakeConeCmd extends CommandBase {
     }
     @Override
     public void initialize(){
+        time.start();
         System.out.println("IntakeConeCmd started"); 
 
     }
     @Override
     public boolean isFinished(){
-        if(intakeSubsystem.getPDMCurrent() >= Constants.IntakeConstants.theoreticalStallCurrent){
+        if(intakeSubsystem.getPDMCurrent() >= Constants.IntakeConstants.theoreticalStallCurrent && time.hasElapsed(.3)){
             return true;
         }
         return false; 

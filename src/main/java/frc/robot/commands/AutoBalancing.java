@@ -50,7 +50,9 @@ public class AutoBalancing extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        SmartDashboard.putBoolean("At Tolerance", pidController.atSetpoint());
-        return pidController.atSetpoint();
+        /* Temporary Auto disable */
+        return true;
+        // SmartDashboard.putBoolean("At Tolerance", pidController.atSetpoint());
+        // return pidController.atSetpoint();
     }
 }
