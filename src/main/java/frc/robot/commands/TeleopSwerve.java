@@ -24,7 +24,11 @@ public class TeleopSwerve extends CommandBase {
   private SlewRateLimiter rotationLimiter = new SlewRateLimiter(3.0);
 
   /**
+<<<<<<< Updated upstream
    * 
+=======
+   * The constructor initializes the class variables. 
+>>>>>>> Stashed changes
    * @param s_Swerve
    * @param translationSup
    * @param strafeSup

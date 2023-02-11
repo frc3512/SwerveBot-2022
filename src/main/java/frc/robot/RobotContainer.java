@@ -68,6 +68,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
    * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * <p>
+   * This method binds the buttons to commands. 
+   * The x button is binded to AutoBalancing. 
+   * Y button is for swerve
    */
   private void configureButtonBindings() {
     /* Driver Buttons */
@@ -75,6 +79,10 @@ public class RobotContainer {
     driver.y().onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     driver.povDown().onTrue(new segmentLineUp(s_Swerve, segmentLineUp.SEGMENT.CUBE_3, () -> s_Swerve.getPoint()));
   }
+<<<<<<< Updated upstream
+=======
+  
+>>>>>>> Stashed changes
   private void configureSmartDashboard() {
     autoChooser.setDefaultOption("Move forward", moveForward);
     autoChooser.addOption("S curve", sCurve);
