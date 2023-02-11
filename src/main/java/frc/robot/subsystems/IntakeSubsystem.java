@@ -33,7 +33,7 @@ public class IntakeSubsystem extends SubsystemBase{
     public void periodic(){
         //returns in amps
        // double intakeCurrent = pdm.getCurrent(Constants.IntakeConstants.pdpChannel); 
-       double intakeCurrent = intakeMotor.getBusVoltage(); 
+       double intakeCurrent = intakeMotor.getOutputCurrent();  
         SmartDashboard.putNumber("Intake Current", intakeCurrent); 
         
         
