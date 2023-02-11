@@ -22,7 +22,7 @@ public class IntakeCubeCmd extends CommandBase{
     
         addRequirements(intakeSubsystem);
     }
-    
+    //TODO update cube code to match cones code
     @Override
     public void end(boolean interrupted) {
         intakeSubsystem.setMotor(0); 
