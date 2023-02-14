@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -11,7 +9,7 @@ import frc.robot.commands.IntakeCubeCmd;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
 
-public class IntakeSubsystem extends SubsystemBase{
+public class IntakeSubsystem extends SubsystemBase {
     // private final CANSparkMax wristMotor;
     private final CANSparkMax intakeMotor; 
     // private final PowerDistribution pdm;
@@ -33,9 +31,5 @@ public class IntakeSubsystem extends SubsystemBase{
        // double intakeCurrent = pdm.getCurrent(Constants.IntakeConstants.pdpChannel); 
        double intakeCurrent = intakeMotor.getOutputCurrent();  
         SmartDashboard.putNumber("Intake Current", intakeCurrent); 
-        
-        
-
-    }
-    
+    }  
 }
