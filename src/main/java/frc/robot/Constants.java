@@ -203,7 +203,7 @@ public final class Constants {
 
     public static final double outtakeSpeed = 1; 
 
-    public static final double  theoreticalStallCurrent = 80; 
+    public static final double maxCurrentIntake = 80; 
 
   }
 }

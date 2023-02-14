@@ -7,7 +7,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeConeCmd extends CommandBase {
     
-    IntakeSubsystem intakeSubsystem; 
+    private final IntakeSubsystem intakeSubsystem; 
     Timer time;
 
     public IntakeConeCmd(IntakeSubsystem intakeSubsystem){
@@ -34,7 +34,7 @@ public class IntakeConeCmd extends CommandBase {
     }
     @Override
     public boolean isFinished(){
-        if(intakeSubsystem.getPDMCurrent() >= Constants.IntakeConstants.theoreticalStallCurrent && time.hasElapsed(.3)){
+        if(intakeSubsystem.getPDMCurrent() >= Constants.IntakeConstants.maxCurrentIntake && time.hasElapsed(.3)){
             return true;
         }
         return false; 

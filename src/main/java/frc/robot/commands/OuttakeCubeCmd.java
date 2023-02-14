@@ -38,9 +38,7 @@ public class OuttakeCubeCmd extends CommandBase {
 
     @Override
     public boolean isFinished(){
-      /*   if(intakeSubsystem.getPDMCurrent() >= Constants.IntakeConstants.theoreticalStallCurrent){
-            return true;
-        }*/
+      
         
         return time.hasElapsed(.5);
     }
