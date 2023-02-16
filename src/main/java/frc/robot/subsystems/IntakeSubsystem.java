@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.CANEncoder;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -12,7 +13,7 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
 
-public class IntakeSubsystem extends SubsystemBase{
+public class IntakeSubsystem extends SubsystemBase {
     // private final CANSparkMax wristMotor;
     private final CANSparkMax intakeMotor; 
     private final RelativeEncoder intakeEncoder = new RelativeEncoder() {
@@ -37,9 +38,5 @@ public class IntakeSubsystem extends SubsystemBase{
        // double intakeCurrent = pdm.getCurrent(Constants.IntakeConstants.pdpChannel); 
        double intakeCurrent = intakeMotor.getOutputCurrent();  
         SmartDashboard.putNumber("Intake Current", intakeCurrent); 
-        
-        
-
-    }
-    
+    }  
 }
