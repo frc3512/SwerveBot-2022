@@ -20,7 +20,7 @@ import frc.robot.subsystems.*;
 
 public class RobotContainer {
   /* Controllers */
-  private final CommandXboxController driver = new CommandXboxController(0);
+  public final CommandXboxController driver = new CommandXboxController(0);
 
   /* Drive Controls */
   private static final int translationAxis = XboxController.Axis.kLeftY.value;
