@@ -6,6 +6,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class OuttakeConeCmd extends CommandBase {
+    //TODO add rpm for outtake
     
     IntakeSubsystem intakeSubsystem; 
     Timer time;
