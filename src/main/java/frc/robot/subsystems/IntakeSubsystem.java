@@ -16,15 +16,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntakeSubsystem extends SubsystemBase {
     // private final CANSparkMax wristMotor;
     private final CANSparkMax intakeMotor; 
-    private final RelativeEncoder intakeEncoder = new RelativeEncoder() {
-        
-    };; 
+    private final RelativeEncoder intakeEncoder; 
+   
 
 
     public IntakeSubsystem(){
         intakeMotor = new CANSparkMax(Constants.IntakeConstants.intakeMotorId, MotorType.kBrushless); 
         // wristMotor = new CANSparkMax(Constants.IntakeConstants.wristMotorId, MotorType.kBrushless);
         // pdm = new PowerDistribution(1, PowerDistribution.ModuleType.kRev); 
+        intakeEncoder = intakeMotor.getEncoder(); 
+
+        intakeEncoder.setPositionConversionFactor(2.0); 
     }
     public void setMotor(double speed){
         intakeMotor.set(speed); 
