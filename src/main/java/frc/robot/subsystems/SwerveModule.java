@@ -61,8 +61,9 @@ public class SwerveModule {
 
     lastAngle = getState().angle;
   }
-  /**
+ /**
    * TODO
+   * 
    * @param desiredState
    * @param isOpenLoop
    */
@@ -76,7 +77,7 @@ public class SwerveModule {
     setSpeed(desiredState, isOpenLoop);
   }
 
-  /**
+/**
    * 
    * @param desiredState
    * @param isOpenLoop
