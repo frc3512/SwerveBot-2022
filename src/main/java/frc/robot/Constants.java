@@ -194,6 +194,7 @@ public final class Constants {
     
   }
   public static final class IntakeConstants{
+    
     public static final int intakeMotorId = 58; 
     public static final int wristMotorId = 59;
     public static final int pdpChannel = 2; //update number later
@@ -207,6 +208,7 @@ public final class Constants {
 
     //wheel diameter, gear ratio, encoder constants
         //will need to change depending on the robot/swerve
+        //the below value will need to be change not accurate for our robot 
         public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
         public static final double kDriveMotorGearRatio = 1 / 5.8462;
         public static final double kTurningMotorGearRatio = 1 / 18.0;
