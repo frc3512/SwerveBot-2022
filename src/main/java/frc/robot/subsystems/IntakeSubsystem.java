@@ -26,7 +26,9 @@ public class IntakeSubsystem extends SubsystemBase {
         // pdm = new PowerDistribution(1, PowerDistribution.ModuleType.kRev); 
         intakeEncoder = intakeMotor.getEncoder(); 
 
-        intakeEncoder.setPositionConversionFactor(2.0); 
+        intakeEncoder.setPositionConversionFactor(Constants.IntakeConstants)
+
+       
     }
     public void setMotor(double speed){
         intakeMotor.set(speed); 
