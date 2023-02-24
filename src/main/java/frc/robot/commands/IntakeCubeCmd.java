@@ -25,7 +25,7 @@ public class IntakeCubeCmd extends CommandBase{
         this.time = new Timer(); 
         addRequirements(intakeSubsystem);
     }
-    //TODO update cube code to match cones code
+   
     @Override
     public void end(boolean interrupted) {
         time.stop();
